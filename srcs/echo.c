@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 11:11:09 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/22 13:25:30 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/22 14:04:33 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,10 @@ int	print_echo_fd(t_arg *arg, char *filename, int n, int red)
 {
 	char	*content;
 
-	content = malloc(sizeof(char) * (args_size(arg)));
+	content = malloc(sizeof(char) * (args_size(arg) + 1));
 	if (!content)
 		exit (1);
+	content[0] = '\0';
 	while (arg)
 	{
 		if (arg->nbr < 0)
@@ -68,7 +69,16 @@ int	print_echo_fd(t_arg *arg, char *filename, int n, int red)
 		ft_redirection_appen(content, filename);
 	if (n == 0)
 		write (1, "\n", 1);
+	free(content);
 	return (0);
+}
+
+void	echo_manage(t_arg *arg, char *filename, int n, int fd)
+{
+	if (fd < 0)
+		print_echo_fd(arg,	filename, n, fd);
+	else 
+		print_echo0(arg, n);
 }
 
 int	ft_echo(t_cmd *cmd)
@@ -80,9 +90,6 @@ int	ft_echo(t_cmd *cmd)
 
 	fd = 0;
 	n = 0;
-	/*arg = malloc(sizeof(t_arg *));
-	if (!arg)
-		exit (1);*/
 	arg = cmd->next_arg;
 	filename = cmd->next_arg;
 	if (ft_strncmp(arg->arg, "-n", 2) == 0)
@@ -97,9 +104,6 @@ int	ft_echo(t_cmd *cmd)
 			filename = filename->next_arg;
 		filename = filename->next_arg;
 	}
-	if (fd < 0)
-		print_echo_fd(arg, filename->arg, n, fd);
-	else 
-		print_echo0(arg, n);
+	echo_manage(arg, filename->arg, n, fd);
 	return (0);
 }
