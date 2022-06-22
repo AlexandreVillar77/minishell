@@ -6,7 +6,7 @@
 #    By: avillar <avillar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 13:12:34 by thbierne          #+#    #+#              #
-#    Updated: 2022/06/22 13:41:36 by avillar          ###   ########.fr        #
+#    Updated: 2022/06/22 15:23:54 by avillar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS =	srcs/alloc_arg.c			\
 		srcs/alloc_pipe.c			\
 		srcs/alloc_redi.c			\
 		srcs/init_llist.c 			\
+		srcs/list_del.c				\
 		srcs/check_syntaxe.c		\
 		srcs/ft_case_cmd.c			\
 		srcs/ft_case_echo.c			\
@@ -37,12 +38,16 @@ SRCS =	srcs/alloc_arg.c			\
 		srcs/fctnl_manager.c		\
 		srcs/exit.c					\
 		srcs/env.c					\
+		srcs/pwd.c					\
+		srcs/ft_make_file.c			\
 
 OBJS = $(SRCS:.c=.o)
 
 CC = gcc
 
-CFLAG = -Wall -Wextra -Werror
+FSAN = -fsanitize=address
+
+CFLAG = -Wall -Wextra -Werror -g3
 
 all: libft/libft.a ${NAME}
 

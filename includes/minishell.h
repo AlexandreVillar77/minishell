@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:27:38 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/22 13:39:56 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/22 16:08:33 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,9 @@ t_cmd		*add_last_t_cmd(t_cmd *list, char *str, int nbr);
 t_cmd		*delete_first_t_cmd(t_cmd *list);
 t_arg		*add_first_t_arg(char *str, int nbr);
 t_arg		*add_last_t_arg(t_arg *list, char *str, int nbr);
+void		larg_del_one(t_arg *arg, int id);
+void		larg_del_first(t_arg *arg);
+void		del_redir(t_arg *arg);
 
 /* check syntaxe */
 
@@ -201,16 +204,23 @@ void		ft_set_base_env(t_env *envl);
 /* builtins */
 
 // echo.c
-int		ft_echo(t_cmd *cmd);
+int			ft_echo(t_cmd *cmd);
 
 //fctnl_manager.c
-int		fctnl_manager(t_llist *list);
-int		check_redir(t_arg *arg);
+int			fctnl_manager(t_llist *list);
+int			check_redir(t_arg *arg);
 
 //exit.c
-int		ft_exit(t_llist *list);
+int			ft_exit(t_llist *list);
 
 //env.c
-int	ft_penv(t_llist *list);
+int			ft_penv(t_llist *list);
+
+//pwd.c
+int			ft_pwd(t_llist *list);
+
+//ft_make_file.c
+char		*recup_argx(t_arg *arg, int id);
+int			ft_make_file(char *filename);
 
 # endif

@@ -6,11 +6,58 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:53:32 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/21 16:23:27 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/22 16:08:40 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int		count_redir(t_arg *arg)
+{
+	int		x;
+	t_arg	*tmp;
+
+	x = 0;
+	tmp = arg;
+	while (tmp->next_arg)
+	{
+		if (tmp->nbr == -1 || tmp->nbr == -2)
+			x++;
+		tmp = tmp->next_arg;
+	}
+	return (x);
+}
+
+void	del_redir(t_arg *arg)
+{
+	t_arg	*tmp;
+	int		x;
+	int		i;
+
+	x = 0;
+	tmp = arg;
+	i = count_redir(arg);
+	while (i > 1 && tmp->next_arg)
+	{
+		if (tmp->nbr == -1 || tmp->nbr == -2)
+		{
+			if (x == 0)
+				larg_del_first(arg);
+			else
+				larg_del_one(arg, x);
+			ft_make_file(recup_argx(arg, x));
+			printf("arg = %s\n", arg->arg);
+			if (x == 0)
+				larg_del_first(arg);
+			else
+				larg_del_one(arg, x);
+			x -= 2;
+			i--;
+		}
+		tmp = tmp->next_arg;
+		x++;
+	}
+}
 
 int		ft_redirection(char *str, char *filename)
 {

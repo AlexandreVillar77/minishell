@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 11:32:21 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/22 13:25:32 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/22 15:17:16 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	check_redir(t_arg *arg)
 	t_arg	*tmp;
 
 	tmp = arg;
+	del_redir(tmp);
 	while (tmp)
 	{
 		if (tmp->nbr < 0)
@@ -35,7 +36,7 @@ int	fctnl_manager(t_llist *list)
 	if (strncmp(list->first_cmd->cmd, "cd", 2) == 0)
 		return (0); // return (ft_cd(list));
 	if (strncmp(list->first_cmd->cmd, "pwd", 3) == 0)
-		return (0); // return (ft_pwd(list));
+		return (ft_pwd(list));
 	if (strncmp(list->first_cmd->cmd, "export", 6) == 0)
 		return (0); // return (ft_export(list));
 	if (strncmp(list->first_cmd->cmd, "unset", 5) == 0)
