@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   replace_dollar.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 13:54:59 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/13 14:04:38 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/06/22 13:22:08 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/libft/libft.h"
 
 char	*join_line_read1(char *line_read, t_env *tmp, int i)
 {
@@ -115,12 +114,10 @@ t_env	*check_dollar_t_env(char *line_read, t_env *first_env, int i)
 char	*replace_dollar(char *line_read, t_env *first_env, int mode)
 {
 	int		i;
-	int		check;
 	t_env	*tmp;
 	char	c;
 
 	i = -1;
-	check = 0;
 	while (line_read[++i])
 	{
 		if ((line_read[i] == '\'' || line_read[i] == '\"') && mode == 0)

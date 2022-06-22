@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:13:37 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/13 13:56:30 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:22:51 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/libft/libft.h"
 
 t_llist	*alloc_str(t_llist *list, char *read_line)
 {

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:22:02 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/16 12:55:31 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:23:38 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/libft/libft.h"
 
 t_llist	*alloc_cmd(t_llist *list, char *line_read)
 {
@@ -80,7 +79,8 @@ int	main(int argc, char **argv, char **envp)
 					free(line_read);
 					line_read = NULL;
 					print_t_cmd(list->first_cmd);
-					exec_llist(list);
+					fctnl_manager(list);
+					//exec_llist(list);
 					list = free_llist_cmd(list);
 				}
 			}

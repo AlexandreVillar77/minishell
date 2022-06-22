@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/22 13:27:38 by avillar           #+#    #+#             */
+/*   Updated: 2022/06/22 13:39:56 by avillar          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "../includes/libft/include/libft.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -175,7 +188,6 @@ void		print_t_cmd(t_cmd *list);
 char		*heredoc(char *eof);
 char		*case_heredoc(char *eof);
 
-
 int			ft_redirection(char *str, char *fd);
 int			ft_redirection_appen(char *str, char *fd);
 char		*join_char(char *str, char c);
@@ -185,16 +197,20 @@ t_llist		*sort_llist_redi(t_llist *list, t_cmd *t_cmd);
 t_llist		*delete_pipe(t_llist *list);
 
 void		ft_set_base_env(t_env *envl);
-void		exec_llist(t_llist *list);
 
-char	**ft_envl_to_envp(t_env *envl);
-void	ft_free_envp(char **envp);
-char	*ft_add_to_envp(char *name, char *value);
-int		ft_listlen(t_env *envl);
+/* builtins */
 
-/*int			ft_check(char *arg, char *str);
-int			ft_builtin(int ac, char **arg, t_env *envl);
-int			ft_execution(int ac, char **arg, t_core *core);
-void		ft_exit(int nbr, t_env *envl, char **arg);*/
+// echo.c
+int		ft_echo(t_cmd *cmd);
+
+//fctnl_manager.c
+int		fctnl_manager(t_llist *list);
+int		check_redir(t_arg *arg);
+
+//exit.c
+int		ft_exit(t_llist *list);
+
+//env.c
+int	ft_penv(t_llist *list);
 
 # endif

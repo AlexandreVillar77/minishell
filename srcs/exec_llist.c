@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_llist.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:14:51 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/13 14:03:55 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:23:06 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/libft/libft.h"
 
 int	count_ac(t_cmd *cmd)
 {
@@ -58,16 +57,16 @@ void	exec_llist(t_llist *list)
 	t_cmd	*cmd_cpy;
 	char	**arg;
 	int		ac;
-	//int		i;
+	int		i;
 	
 	cmd_cpy = list->first_cmd;
 	while (cmd_cpy != NULL)
 	{
 		arg = conv_llist_cmd_tab(cmd_cpy, &ac);
-		/*i = 0;
+		i = 0;
 		while (i < ac)
 			printf("%s ", arg[i++]);
-		printf("\n");*/
+		printf("\n");
 		cmd_cpy = cmd_cpy->next_cmd;
 	}
 }

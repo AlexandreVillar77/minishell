@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_llist.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 13:41:04 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/13 14:05:39 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:23:35 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/libft/libft.h"
 
 t_exe	*add_first_t_exe(char *str)
 {

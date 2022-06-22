@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 12:31:32 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/13 14:04:04 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:22:59 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/libft/libft.h"
 
 t_llist	*alloc_pipe(t_llist *list)
 {

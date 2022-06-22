@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_llist_env.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:51:12 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/13 14:19:02 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:22:57 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/libft/libft.h"
 
 int		ft_strchr2(char *str, char c)
 {
