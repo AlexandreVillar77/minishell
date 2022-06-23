@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 13:01:35 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/13 14:03:47 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:23:32 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/libft/libft.h"
 
 void	inthandler(int pid)
 {

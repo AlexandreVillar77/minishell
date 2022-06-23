@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   test_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 13:41:37 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/13 14:04:54 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:23:49 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/libft/libft.h"
 
 char	*split_path_into_tab2(char *str, char *split, int *i, int *y)
 {

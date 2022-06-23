@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sort_redi.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 14:23:43 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/13 14:04:51 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/06/23 13:32:22 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/libft/libft.h"
 
 t_llist	*sort_redi(t_llist *list)
 {
@@ -26,10 +25,6 @@ t_llist	*sort_redi(t_llist *list)
 		arg_cpy = cmd_cpy->next_arg;
 		while (arg_cpy)
 		{
-			if (arg_cpy->nbr == -5)
-			{
-			//	list = sort_llist_redi(list, cmd_cpy);
-			}
 			arg_cpy = arg_cpy->next_arg;
 		}
 		cmd_cpy = cmd_cpy->next_cmd;

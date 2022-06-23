@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_case_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 14:13:36 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/13 14:03:56 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:23:09 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/libft/libft.h"
 
 t_llist	*alloc_flags_echo3(char *read_line, t_llist *list, int *z, t_cmd *tmp)
 {

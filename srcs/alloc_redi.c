@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_redi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 13:03:40 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/13 14:04:08 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:23:02 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/libft/libft.h"
 
 char	*alloc_redi_cpy(t_llist *list, char *read_line, int *nb)
 {

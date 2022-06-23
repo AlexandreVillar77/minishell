@@ -1,0 +1,25 @@
+1	=
+
+> xxxxx1 > xxxxx2
+ = cree xxx1 et xxx2 vide et return;
+
+
+2	=	
+
+cat | cat | ls
+ls premiere sortie pusi double cat;
+
+
+3	=
+
+env -i ./minishell = segfault
+
+
+4	=
+
+avec env -i
+PWD=/goinfre/avillar	
+SHLVL=1			// pas forcement =  1
+_=/usr/bin/env
+
+voir si pas des residu dans env

@@ -3,15 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:53:32 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/13 14:03:49 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/06/23 15:53:57 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/libft/libft.h"
+
+int		count_redir(t_arg *arg)
+{
+	int		x;
+	t_arg	*tmp;
+
+	x = 0;
+	tmp = arg;
+	while (tmp->next_arg)
+	{
+		if (tmp->nbr == -1 || tmp->nbr == -2)
+			x++;
+		tmp = tmp->next_arg;
+	}
+	return (x);
+}
+
+t_arg	**del_redir(t_arg *arg)
+{
+	t_arg *tmp;
+	int		i;
+	t_arg	**rtn;
+
+	i = count_redir(arg);
+	printf("i = %d\n", i);
+	tmp = arg;
+	rtn = &tmp;
+	while (i > 1 && (tmp->nbr == -1 || tmp->nbr == -2))
+	{
+		larg_del_first(&tmp);
+		ft_make_file(tmp->arg);
+		larg_del_first(&tmp);
+		i--;
+	}
+	while (tmp->next_arg && i > 1)
+	{
+		printf("arg = %s\n",tmp->next_arg->arg);
+		if (tmp->next_arg->nbr == -1 || tmp->next_arg->nbr == -2)
+		{
+			larg_del_next(&tmp);
+			ft_make_file(tmp->next_arg->arg);
+			larg_del_next(&tmp);
+			i--;
+		}
+		tmp = tmp->next_arg;
+	}
+	//printf("arg  start = %s\n", (*rtn)->next_arg->arg);
+	return (rtn);
+}
 
 int		ft_redirection(char *str, char *filename)
 {
@@ -62,7 +110,7 @@ int		ft_redirection_appen(char *str, char *filename)
 		}
 	close(file);
 	file = open(filename,O_RDONLY | O_WRONLY | O_TRUNC);
-	cpy = ft_strjoin(join, "\n");
+	cpy = ft_strjoin(join, "\0");
 	free(join);
 	join = ft_strjoin(cpy, str);
 	free (cpy);

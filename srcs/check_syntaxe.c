@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_syntaxe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 10:41:06 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/13 14:04:08 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:23:04 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/libft/libft.h"
 
 int	check_quote(char *line_read, int i, char c)
 {

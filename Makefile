@@ -3,16 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+         #
+#    By: avillar <avillar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 13:12:34 by thbierne          #+#    #+#              #
-#    Updated: 2022/06/13 13:58:29 by thbierne         ###   ########.fr        #
+#    Updated: 2022/06/23 10:44:05 by avillar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-DIR_LIB = ./includes/libft
-LIB = $(DIR_LIB)/libft.a
 
 SRCS =	srcs/alloc_arg.c			\
 		srcs/alloc_cmd.c			\
@@ -21,6 +19,7 @@ SRCS =	srcs/alloc_arg.c			\
 		srcs/alloc_pipe.c			\
 		srcs/alloc_redi.c			\
 		srcs/init_llist.c 			\
+		srcs/list_del.c				\
 		srcs/check_syntaxe.c		\
 		srcs/ft_case_cmd.c			\
 		srcs/ft_case_echo.c			\
@@ -35,31 +34,39 @@ SRCS =	srcs/alloc_arg.c			\
 		srcs/ft_redirection.c		\
 		srcs/sort_redi.c			\
 		srcs/exec_llist.c			\
+		srcs/echo.c					\
+		srcs/fctnl_manager.c		\
+		srcs/exit.c					\
+		srcs/env.c					\
+		srcs/pwd.c					\
+		srcs/ft_make_file.c			\
 
 OBJS = $(SRCS:.c=.o)
 
-CC = clang
+CC = gcc
 
-INCLUDES = -I./includes -I./includes/libft
-CFLAGS = -Wall -Wextra -Werror -g $(INCLUDES)
+FSAN = -fsanitize=address
 
-RM = rm -f
+CFLAG = -Wall -Wextra -Werror -g3
 
-all: $(NAME)
+all: libft/libft.a ${NAME}
 
-$(NAME): $(OBJS) $(LIB)
-	$(CC) $(CFLAGS) -lreadline -o $(NAME) $(OBJS) $(LIB) 
-	
-$(LIB): $(DIR_LIB)
-	@make -C $(DIR_LIB)
+.c.o:
+	$(CC) $(CFLAG) -Ilibft -c -I/includes/minishell.h $< -o $@
+
+${NAME}: ${OBJS}
+	${CC} ${OBJS} -Llibft -lft -lreadline -o $(NAME)
+
+
+libft/libft.a:
+	make -C libft
 
 clean:
-	$(RM) $(OBJS)
-	$(MAKE) -C $(DIR_LIB) clean
+	rm -f ${OBJS}
 
 fclean: clean
-	$(RM) $(NAME) pwd echo env export
-	$(MAKE) -C $(DIR_LIB) fclean
+	rm -f ${NAME}
+	make -C libft fclean
 
 re: fclean all
 
