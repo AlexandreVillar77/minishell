@@ -6,20 +6,17 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 11:32:21 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/23 11:00:28 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/23 14:54:03 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-
-
 int	check_redir(t_arg *arg)
 {
 	t_arg	*tmp;
 
-	tmp = arg;
-	del_redir(tmp);
+	tmp = *(del_redir(arg));
 	while (tmp)
 	{
 		if (tmp->nbr < 0)

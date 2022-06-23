@@ -6,23 +6,18 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 15:18:43 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/23 10:11:07 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/23 15:00:22 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*recup_argx(t_arg *arg, int id)
+char	*recup_argx(t_arg *arg)
 {
 	t_arg	*tmp;
 
 	tmp = arg;
-	while (id > 0 && tmp->next_arg)
-	{
-		tmp = tmp->next_arg;
-		id--;
-	}
-	return (tmp->arg);
+	return (tmp->next_arg->arg);
 }
 
 int	ft_make_file(char *filename)

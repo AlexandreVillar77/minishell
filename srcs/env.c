@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 12:04:32 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/22 13:25:24 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/23 15:59:17 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,16 @@ int	ft_penv(t_llist *list)
 	t_arg	*filename;
 
 	fd = 0;
-	filename = list->first_cmd->next_arg;
-	if (check_redir(list->first_cmd->next_arg) < 0)
+	if (list->first_cmd->next_arg)
 	{
-		while (filename->nbr > 0)
-			filename = filename->next_arg;
+		filename = list->first_cmd->next_arg;
 		fd = check_redir(list->first_cmd->next_arg);
-		filename = filename->next_arg;
+		if (fd < 0)
+		{
+			while (filename->nbr > 0)
+				filename = filename->next_arg;
+			filename = filename->next_arg;
+		}
 	}
 	tmp = list->first_env;
 	if (fd == 0)

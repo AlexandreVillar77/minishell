@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 11:11:09 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/23 12:02:07 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/23 14:52:08 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ int	ft_echo(t_cmd *cmd)
 		arg = arg->next_arg;
 		n = 1;
 	}
-	printf("here\n");
 	fd = check_redir(arg);
 	if (fd < 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:53:32 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/23 11:54:27 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/23 15:53:57 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,37 @@ int		count_redir(t_arg *arg)
 	return (x);
 }
 
-void	del_redir(t_arg *arg)
+t_arg	**del_redir(t_arg *arg)
 {
-	//t_arg *tmp;
+	t_arg *tmp;
 	int		i;
+	t_arg	**rtn;
 
-	i = arg->nbr;
 	i = count_redir(arg);
-	
+	printf("i = %d\n", i);
+	tmp = arg;
+	rtn = &tmp;
+	while (i > 1 && (tmp->nbr == -1 || tmp->nbr == -2))
+	{
+		larg_del_first(&tmp);
+		ft_make_file(tmp->arg);
+		larg_del_first(&tmp);
+		i--;
+	}
+	while (tmp->next_arg && i > 1)
+	{
+		printf("arg = %s\n",tmp->next_arg->arg);
+		if (tmp->next_arg->nbr == -1 || tmp->next_arg->nbr == -2)
+		{
+			larg_del_next(&tmp);
+			ft_make_file(tmp->next_arg->arg);
+			larg_del_next(&tmp);
+			i--;
+		}
+		tmp = tmp->next_arg;
+	}
+	//printf("arg  start = %s\n", (*rtn)->next_arg->arg);
+	return (rtn);
 }
 
 int		ft_redirection(char *str, char *filename)
