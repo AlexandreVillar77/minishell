@@ -6,34 +6,37 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 14:55:19 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/22 16:09:41 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/23 10:58:02 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	larg_del_first(t_arg *arg)
+void	larg_del_first(t_arg **arg)
 {
-	t_arg	*tmp;
+	//t_arg	*tmp;
 
 	if (!arg)
 		return ;
-	tmp = arg;
-	arg = arg->next_arg;
-	if (tmp->arg)
-		free(tmp->arg);
-	if (tmp)
-		free(tmp);
+	//tmp = *arg;
+	if ((*arg)->next_arg)
+		*arg = (*arg)->next_arg;
+	//free(tmp);
 }
 
-void	larg_del_one(t_arg *arg, int id)
+void	larg_del_one(t_arg **arg, int id)
 {
 	t_arg *tmp;
 	t_arg *todel;
 
 	if (!arg)
 		return ;
-	tmp = arg;
+	if (id == 0)
+	{
+		larg_del_first(arg);
+		return ;
+	}
+	tmp = *arg;
 	while (id > 1 && tmp->next_arg)
 	{
 		tmp = tmp->next_arg;
@@ -42,8 +45,5 @@ void	larg_del_one(t_arg *arg, int id)
 	todel = tmp->next_arg;
 	if (todel->next_arg)
 		tmp->next_arg = todel->next_arg;
-	if (todel->arg)
-		free(todel->arg);
-	if (todel)
-		free(todel);
+	free(todel);
 }

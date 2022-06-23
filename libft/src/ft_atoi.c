@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 14:19:50 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/23 11:02:32 by avillar          ###   ########.fr       */
+/*   Created: 2021/01/05 14:38:31 by avillar           #+#    #+#             */
+/*   Updated: 2022/06/21 16:28:01 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../include/libft.h"
 
-int	ft_pwd(t_llist *list)
+int	ft_atoi(const char *str)
 {
-	char	*path;
-	t_arg	*tmp;
+	long int	rtn;
+	int			nb;
 
-	if (list->first_cmd->next_arg)
-		tmp = list->first_cmd->next_arg;
-	else
-		tmp = NULL;
-	(void)tmp;
-	path = NULL;
-	path = getcwd(path, 0);
-	printf("%s\n", path);
-	return (0);
+	rtn = 0;
+	nb = 1;
+	while (*str == ' ' || *str == '\t' || *str == '\n' || *str == '\f'
+		|| *str == '\r' || *str == '\v')
+		str++;
+	if (*str == '-')
+		nb = -1;
+	if (*str == '-' || *str == '+')
+		str++;
+	while (*str >= 48 && *str <= 57)
+	{
+		rtn *= 10;
+		rtn += *str - 48;
+		str++;
+	}
+	return (rtn * nb);
 }

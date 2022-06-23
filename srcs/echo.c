@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 11:11:09 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/22 14:04:33 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/23 12:02:07 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,16 @@ int	print_echo_fd(t_arg *arg, char *filename, int n, int red)
 		if (arg->nbr < 0)
 			break ;
 		content = ft_strjoin(content, arg->arg);
-		if (arg->next_arg)
+		if (arg->next_arg && arg->next_arg->nbr > 0)
 			content = ft_strjoin(content, " ");
 		arg = arg->next_arg;
 	}
+	if (n == 0)
+		content = ft_strjoin(content, "\n");
 	if (red == -1)
 		ft_redirection(content, filename);
 	else if (red == -2)
 		ft_redirection_appen(content, filename);
-	if (n == 0)
-		write (1, "\n", 1);
 	free(content);
 	return (0);
 }
@@ -97,9 +97,10 @@ int	ft_echo(t_cmd *cmd)
 		arg = arg->next_arg;
 		n = 1;
 	}
-	if (check_redir(arg) < 0)
+	printf("here\n");
+	fd = check_redir(arg);
+	if (fd < 0)
 	{
-		fd = check_redir(arg);
 		while (filename->nbr > 0)
 			filename = filename->next_arg;
 		filename = filename->next_arg;

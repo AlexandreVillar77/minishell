@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 14:19:50 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/23 11:02:32 by avillar          ###   ########.fr       */
+/*   Created: 2021/01/05 11:03:59 by avillar           #+#    #+#             */
+/*   Updated: 2022/06/21 16:28:01 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../include/libft.h"
 
-int	ft_pwd(t_llist *list)
+void	*ft_memset(void *ptr, int c, size_t len)
 {
-	char	*path;
-	t_arg	*tmp;
+	int		i;
+	int		id;
 
-	if (list->first_cmd->next_arg)
-		tmp = list->first_cmd->next_arg;
-	else
-		tmp = NULL;
-	(void)tmp;
-	path = NULL;
-	path = getcwd(path, 0);
-	printf("%s\n", path);
-	return (0);
+	id = 0;
+	i = sizeof(char);
+	while (len > 0)
+	{
+		((char *)ptr)[id] = c;
+		id++;
+		len -= i;
+	}
+	return (ptr);
 }

@@ -6,14 +6,14 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:27:38 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/22 16:08:33 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/23 10:43:39 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../includes/libft/include/libft.h"
+# include "../libft/include/libft.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -106,8 +106,8 @@ t_cmd		*add_last_t_cmd(t_cmd *list, char *str, int nbr);
 t_cmd		*delete_first_t_cmd(t_cmd *list);
 t_arg		*add_first_t_arg(char *str, int nbr);
 t_arg		*add_last_t_arg(t_arg *list, char *str, int nbr);
-void		larg_del_one(t_arg *arg, int id);
-void		larg_del_first(t_arg *arg);
+void		larg_del_one(t_arg **arg, int id);
+void		larg_del_first(t_arg **arg);
 void		del_redir(t_arg *arg);
 
 /* check syntaxe */

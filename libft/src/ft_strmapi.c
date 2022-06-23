@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 14:19:50 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/23 11:02:32 by avillar          ###   ########.fr       */
+/*   Created: 2021/01/07 15:05:04 by avillar           #+#    #+#             */
+/*   Updated: 2022/06/21 16:28:01 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../include/libft.h"
 
-int	ft_pwd(t_llist *list)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	char	*path;
-	t_arg	*tmp;
+	char	*rtn;
+	int		i;
 
-	if (list->first_cmd->next_arg)
-		tmp = list->first_cmd->next_arg;
-	else
-		tmp = NULL;
-	(void)tmp;
-	path = NULL;
-	path = getcwd(path, 0);
-	printf("%s\n", path);
-	return (0);
+	i = 0;
+	if (s == 0)
+		return (0);
+	rtn = malloc(sizeof(char) * ft_strlen((char *)s) + 1);
+	if (!rtn)
+		return (0);
+	while (s[i])
+	{
+		rtn[i] = (*f)(i, s[i]);
+		i++;
+	}
+	rtn[i] = '\0';
+	return (rtn);
 }

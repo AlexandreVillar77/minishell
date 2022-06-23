@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 14:19:50 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/23 11:02:32 by avillar          ###   ########.fr       */
+/*   Created: 2021/01/07 15:52:49 by avillar           #+#    #+#             */
+/*   Updated: 2022/06/21 16:28:01 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../include/libft.h"
 
-int	ft_pwd(t_llist *list)
+void	ft_putnbr_fd(int n, int fd)
 {
-	char	*path;
-	t_arg	*tmp;
+	unsigned int	nb;
 
-	if (list->first_cmd->next_arg)
-		tmp = list->first_cmd->next_arg;
+	if (n < 0)
+	{
+		nb = n * -1;
+		ft_putchar_fd('-', fd);
+	}
 	else
-		tmp = NULL;
-	(void)tmp;
-	path = NULL;
-	path = getcwd(path, 0);
-	printf("%s\n", path);
-	return (0);
+		nb = n;
+	if (nb > 9)
+	{
+		ft_putnbr_fd((nb / 10), fd);
+		ft_putchar_fd(((nb % 10) + 48), fd);
+	}
+	else
+	{
+		ft_putchar_fd(((nb % 10) + 48), fd);
+	}
 }

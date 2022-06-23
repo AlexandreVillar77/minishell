@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:53:32 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/22 16:08:40 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/23 11:54:27 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,33 +30,12 @@ int		count_redir(t_arg *arg)
 
 void	del_redir(t_arg *arg)
 {
-	t_arg	*tmp;
-	int		x;
+	//t_arg *tmp;
 	int		i;
 
-	x = 0;
-	tmp = arg;
+	i = arg->nbr;
 	i = count_redir(arg);
-	while (i > 1 && tmp->next_arg)
-	{
-		if (tmp->nbr == -1 || tmp->nbr == -2)
-		{
-			if (x == 0)
-				larg_del_first(arg);
-			else
-				larg_del_one(arg, x);
-			ft_make_file(recup_argx(arg, x));
-			printf("arg = %s\n", arg->arg);
-			if (x == 0)
-				larg_del_first(arg);
-			else
-				larg_del_one(arg, x);
-			x -= 2;
-			i--;
-		}
-		tmp = tmp->next_arg;
-		x++;
-	}
+	
 }
 
 int		ft_redirection(char *str, char *filename)
@@ -108,7 +87,7 @@ int		ft_redirection_appen(char *str, char *filename)
 		}
 	close(file);
 	file = open(filename,O_RDONLY | O_WRONLY | O_TRUNC);
-	cpy = ft_strjoin(join, "\n");
+	cpy = ft_strjoin(join, "\0");
 	free(join);
 	join = ft_strjoin(cpy, str);
 	free (cpy);

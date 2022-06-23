@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 14:19:50 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/23 11:02:32 by avillar          ###   ########.fr       */
+/*   Created: 2021/01/07 16:38:00 by avillar           #+#    #+#             */
+/*   Updated: 2022/06/21 16:28:01 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../include/libft.h"
 
-int	ft_pwd(t_llist *list)
+t_list	*ft_lstnew(void *content)
 {
-	char	*path;
-	t_arg	*tmp;
+	t_list	*new;
 
-	if (list->first_cmd->next_arg)
-		tmp = list->first_cmd->next_arg;
-	else
-		tmp = NULL;
-	(void)tmp;
-	path = NULL;
-	path = getcwd(path, 0);
-	printf("%s\n", path);
-	return (0);
+	new = malloc(sizeof(t_list) * 1);
+	if (!new)
+		return (0);
+	new->content = content;
+	new->next = 0;
+	return (new);
 }

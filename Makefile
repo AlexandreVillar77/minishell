@@ -6,7 +6,7 @@
 #    By: avillar <avillar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 13:12:34 by thbierne          #+#    #+#              #
-#    Updated: 2022/06/22 15:23:54 by avillar          ###   ########.fr        #
+#    Updated: 2022/06/23 10:44:05 by avillar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,22 +52,21 @@ CFLAG = -Wall -Wextra -Werror -g3
 all: libft/libft.a ${NAME}
 
 .c.o:
-	$(CC) $(CFLAG) -I./includes/libft -c -I/includes/minishell.h $< -o $@
+	$(CC) $(CFLAG) -Ilibft -c -I/includes/minishell.h $< -o $@
 
 ${NAME}: ${OBJS}
-	${CC} ${OBJS} -L./includes/libft -lft -lreadline -o $(NAME)
+	${CC} ${OBJS} -Llibft -lft -lreadline -o $(NAME)
 
 
 libft/libft.a:
-	make -C ./includes/libft
+	make -C libft
 
 clean:
-	rm -f $(OBJS)
-	make -C ./includes/libft clean
+	rm -f ${OBJS}
 
 fclean: clean
 	rm -f ${NAME}
-	make -C ./includes/libft fclean
+	make -C libft fclean
 
 re: fclean all
 

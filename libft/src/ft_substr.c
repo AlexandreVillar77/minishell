@@ -1,29 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 14:19:50 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/23 11:02:32 by avillar          ###   ########.fr       */
+/*   Created: 2021/01/07 10:28:33 by avillar           #+#    #+#             */
+/*   Updated: 2022/06/21 16:28:01 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../include/libft.h"
 
-int	ft_pwd(t_llist *list)
+char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
-	char	*path;
-	t_arg	*tmp;
+	char		*rtn;
+	size_t		i;
 
-	if (list->first_cmd->next_arg)
-		tmp = list->first_cmd->next_arg;
-	else
-		tmp = NULL;
-	(void)tmp;
-	path = NULL;
-	path = getcwd(path, 0);
-	printf("%s\n", path);
-	return (0);
+	i = 0;
+	if (s == 0)
+		return (0);
+	rtn = malloc(sizeof(char) * len + 1);
+	if (!rtn)
+		return (0);
+	while (i < len && (int)start <= ft_strlen((char *)s))
+	{
+		rtn[i] = s[start];
+		i++;
+		start++;
+	}
+	rtn[i] = 0;
+	return (rtn);
 }

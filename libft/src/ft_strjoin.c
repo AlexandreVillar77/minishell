@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 14:19:50 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/23 11:02:32 by avillar          ###   ########.fr       */
+/*   Created: 2021/01/07 10:52:23 by avillar           #+#    #+#             */
+/*   Updated: 2022/06/21 16:28:01 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../include/libft.h"
 
-int	ft_pwd(t_llist *list)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*path;
-	t_arg	*tmp;
+	char		*rtn;
+	size_t		s1s;
+	size_t		s2s;
 
-	if (list->first_cmd->next_arg)
-		tmp = list->first_cmd->next_arg;
-	else
-		tmp = NULL;
-	(void)tmp;
-	path = NULL;
-	path = getcwd(path, 0);
-	printf("%s\n", path);
-	return (0);
+	if (s1 == 0 || s2 == 0)
+		return (0);
+	s1s = ft_strlen((char *)s1);
+	s2s = ft_strlen((char *)s2);
+	rtn = malloc(sizeof(char) * s1s + s2s + 1);
+	if (!rtn)
+		return (0);
+	ft_strlcpy(rtn, s1, s1s + 1);
+	ft_strlcat(rtn, s2, s1s + s2s + 1);
+	return (rtn);
 }

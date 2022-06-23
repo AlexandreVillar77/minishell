@@ -1,29 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 14:19:50 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/23 11:02:32 by avillar          ###   ########.fr       */
+/*   Created: 2021/01/05 11:01:23 by avillar           #+#    #+#             */
+/*   Updated: 2022/06/21 16:28:01 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../include/libft.h"
 
-int	ft_pwd(t_llist *list)
+void	*ft_memccpy(void *restrict dst,
+		const void *restrict src, int c, size_t n)
 {
-	char	*path;
-	t_arg	*tmp;
+	int		i;
+	char	cr;
 
-	if (list->first_cmd->next_arg)
-		tmp = list->first_cmd->next_arg;
+	cr = c;
+	i = sizeof(cr);
+	while (n > 0 && *(char *)src != cr)
+	{
+		*(char *)dst = *(char *)src;
+		dst++;
+		src++;
+		n -= i;
+	}
+	if (*(char *)src == cr)
+	{
+		*(char *)dst = *(char *)src;
+		dst++;
+		src++;
+		return (dst);
+	}
 	else
-		tmp = NULL;
-	(void)tmp;
-	path = NULL;
-	path = getcwd(path, 0);
-	printf("%s\n", path);
-	return (0);
+		return (0);
 }
