@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:53:32 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/23 15:53:57 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/24 10:03:48 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ t_arg	**del_redir(t_arg *arg)
 	t_arg	**rtn;
 
 	i = count_redir(arg);
-	printf("i = %d\n", i);
 	tmp = arg;
 	rtn = &tmp;
 	while (i > 1 && (tmp->nbr == -1 || tmp->nbr == -2))
@@ -47,7 +46,6 @@ t_arg	**del_redir(t_arg *arg)
 	}
 	while (tmp->next_arg && i > 1)
 	{
-		printf("arg = %s\n",tmp->next_arg->arg);
 		if (tmp->next_arg->nbr == -1 || tmp->next_arg->nbr == -2)
 		{
 			larg_del_next(&tmp);
@@ -57,7 +55,6 @@ t_arg	**del_redir(t_arg *arg)
 		}
 		tmp = tmp->next_arg;
 	}
-	//printf("arg  start = %s\n", (*rtn)->next_arg->arg);
 	return (rtn);
 }
 

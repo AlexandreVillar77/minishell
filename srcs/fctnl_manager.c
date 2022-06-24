@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 11:32:21 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/23 14:54:03 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/24 11:46:45 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ int	fctnl_manager(t_llist *list)
 	if (strncmp(list->first_cmd->cmd, "echo", 4) == 0)
 		return (ft_echo(list->first_cmd));
 	if (strncmp(list->first_cmd->cmd, "cd", 2) == 0)
-		return (0); // return (ft_cd(list));
+		return (ft_cd(list));
 	if (strncmp(list->first_cmd->cmd, "pwd", 3) == 0)
 		return (ft_pwd(list));
 	if (strncmp(list->first_cmd->cmd, "export", 6) == 0)
 		return (0); // return (ft_export(list));
 	if (strncmp(list->first_cmd->cmd, "unset", 5) == 0)
-		return (0); // return (ft_unset(list));
+		return (ft_unset(list));
 	if (strncmp(list->first_cmd->cmd, "env", 3) == 0)
 		return (ft_penv(list));
 	if (strncmp(list->first_cmd->cmd, "exit", 4) == 0)

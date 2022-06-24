@@ -23,3 +23,15 @@ SHLVL=1			// pas forcement =  1
 _=/usr/bin/env
 
 voir si pas des residu dans env
+
+
+5 = 
+
+avec echo si phrase avec espace a la fin sans rien derriere
+sans ecrire dans des quote erreur quote not close alors que bash 
+ne renvoie pas d'erreur simplement ne pas prendre en compte l'espace si rien derriere
+
+
+6 =
+
+Gerer l'interpretation de ~/ pour cd

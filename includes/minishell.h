@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:27:38 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/23 14:56:03 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/24 12:26:51 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <term.h>
 # include <sys/wait.h>
 # include <signal.h>
+# include <errno.h>
 
 //dans la llist_arg:
 // arg = > 0;
@@ -75,6 +76,7 @@ struct s_exe
 
 struct s_llist
 {
+	char		*lastpos;
 	int			index;
 	int			new_cmd;
 	t_cmd		*first_cmd;
@@ -222,5 +224,11 @@ int			ft_pwd(t_llist *list);
 //ft_make_file.c
 char		*recup_argx(t_arg *arg);
 int			ft_make_file(char *filename);
+
+//chdir.c
+int			ft_cd(t_llist *list);
+
+//unset.c
+int			ft_unset(t_llist *list);
 
 # endif
