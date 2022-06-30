@@ -6,11 +6,31 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 11:32:21 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/27 15:52:38 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/30 13:51:19 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+char	*get_fd_name(t_arg *arg)
+{
+	t_arg	*tmp;
+
+	tmp = arg;
+	while (tmp->next_arg)
+	{
+		if (tmp->nbr > -3 && tmp->nbr < 0)
+			break;
+		tmp = tmp->next_arg;
+	}
+	if (tmp->next_arg)
+	{
+		tmp = tmp->next_arg;
+		return (tmp->arg);
+	}
+	else
+		return (0);
+}
 
 int	check_redir(t_arg *arg)
 {
@@ -43,5 +63,5 @@ int	fctnl_manager(t_llist *list)
 	if (strncmp(list->first_cmd->cmd, "exit", 4) == 0)
 		return (ft_exit(list));
 	else
-		return (0); // ft_others(list);
+		return (ft_exec_others(list));
 }
