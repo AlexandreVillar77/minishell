@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+         #
+#    By: avillar <avillar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 13:12:34 by thbierne          #+#    #+#              #
-#    Updated: 2022/06/30 10:33:57 by thbierne         ###   ########.fr        #
+#    Updated: 2022/06/30 13:50:50 by avillar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRCS =	srcs/alloc_arg.c			\
 		srcs/export.c				\
 		srcs/export_utils.c			\
 		srcs/replace_home.c			\
+		srcs/ft_exec_other.c		\
 
 OBJS = $(SRCS:.c=.o)
 
