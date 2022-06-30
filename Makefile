@@ -6,7 +6,7 @@
 #    By: avillar <avillar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 13:12:34 by thbierne          #+#    #+#              #
-#    Updated: 2022/06/24 12:18:17 by avillar          ###   ########.fr        #
+#    Updated: 2022/06/27 15:43:40 by avillar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,9 @@ SRCS =	srcs/alloc_arg.c			\
 		srcs/chdir.c				\
 		srcs/unset.c				\
 		srcs/ft_make_file.c			\
+		srcs/create_redi.c			\
+		srcs/export.c				\
+		srcs/export_utils.c			\
 
 OBJS = $(SRCS:.c=.o)
 

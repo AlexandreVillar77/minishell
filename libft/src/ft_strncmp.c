@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 12:59:23 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/21 16:28:01 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/24 16:07:11 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	int	i;
 	int	stock;
 
+	if (!s1)
+		return (-1);
+	if (s1 && !s2)
+		return (0);
 	i = 0;
 	stock = n;
 	while (s1[i] && n > 0 && s2[i])

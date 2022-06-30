@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_arg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 11:35:31 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/13 14:20:07 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/06/27 15:53:51 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,3 @@ t_llist	*alloc_arg(t_llist *list, char *read_line)
 	free(str);
 	return (list);
 }
-

@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:27:38 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/24 12:26:51 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/27 15:58:08 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ t_env		*add_t_env(t_env *list, char *str);
 t_env		*alloc_t_env(char **envp, t_env *list);
 
 char		*rl_gets(char *line_read);
-int			main();
+int			ft_strchr2(char *str, char c);
 
 /* remplace le dollar */
 
@@ -201,7 +201,10 @@ t_llist		*sort_redi(t_llist *list);
 t_llist		*sort_llist_redi(t_llist *list, t_cmd *t_cmd);
 t_llist		*delete_pipe(t_llist *list);
 
-void		ft_set_base_env(t_env *envl);
+t_env		*ft_set_base_env();
+
+t_llist		*create_redi(t_llist *list);
+void		check_files(char *filename, int mode);
 
 /* builtins */
 
@@ -230,5 +233,12 @@ int			ft_cd(t_llist *list);
 
 //unset.c
 int			ft_unset(t_llist *list);
+
+//ft_export.c && export_utils.c
+int		ft_fullexport(t_llist **list);
+int		export_checker(t_arg *arg);
+int		export_fullchecker(t_arg *arg);
+void	print_experror(t_arg *arg, int er);
+int		ft_export(t_llist **list, t_arg  **tmp);
 
 # endif

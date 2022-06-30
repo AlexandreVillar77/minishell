@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:22:02 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/22 13:54:16 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/27 15:44:21 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int	main(int argc, char **argv, char **envp)
 					list = alloc_cmd(list, line_read);
 					free(line_read);
 					line_read = NULL;
+					//if (list->first_cmd->next_arg)
+					//	list->first_cmd->next_arg = *(del_redir(list->first_cmd->next_arg));
 					print_t_cmd(list->first_cmd);
 					fctnl_manager(list);
 					//exec_llist(list);

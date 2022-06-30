@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_llist_env.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:51:12 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/23 16:04:53 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/27 10:58:05 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,11 @@ t_env	*alloc_t_env(char **envp, t_env *list)
 {
 	int	y;
 
+	if (envp[0] == NULL)
+	{
+		list = ft_set_base_env(list);
+		return (list);
+	}
 	y = 1;
 	list = add_t_env(list, envp[0]);
 	while (envp[y])
@@ -105,12 +110,15 @@ t_env	*alloc_t_env(char **envp, t_env *list)
 	return (list);
 }
 
-void	ft_set_base_env(t_env *envl)
+t_env	*ft_set_base_env(t_env *envl)
 {
-	envl->name = NULL;
-	envl->var = NULL;
-	envl->next_env = NULL;
-	add_t_env(envl, "PWD=");
-	add_t_env(envl, "SHLVL=1");
-	add_t_env(envl, "_=usr/bin/env");
+	char	*str;
+
+	str = NULL;
+	str = getcwd(str, 0);
+	envl = add_t_env(envl, ft_strjoin("PWD=", str));
+	envl = add_t_env(envl, "SHLVL=1");
+	envl = add_t_env(envl, "_=usr/bin/env");
+	free (str);
+	return (envl);
 }

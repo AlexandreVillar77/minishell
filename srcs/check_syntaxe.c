@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_syntaxe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 10:41:06 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/21 16:23:04 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/27 15:43:04 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	check_red(char *line_read, int i, char c)
 		return (-3);
 	else if (line_read[i] == '|' && y == 0 && line_read[i - 1] == ' ')
 		return (-3);
-	return (i);
+	return (--i);
 }
 
 int	check_pipe(char *line_read, int i, char c)
@@ -104,6 +104,8 @@ int	check_pipe_dir(char *line_read)
 		i = test_check(line_read, i);
 		if (i < 0)
 			return (i);
+		if (!line_read[i])
+			break;
 		i++;
 	}
 	return (i);

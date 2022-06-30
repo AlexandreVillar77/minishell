@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:53:32 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/24 10:03:48 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/27 11:22:27 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ t_arg	**del_redir(t_arg *arg)
 	while (i > 1 && (tmp->nbr == -1 || tmp->nbr == -2))
 	{
 		larg_del_first(&tmp);
-		ft_make_file(tmp->arg);
 		larg_del_first(&tmp);
 		i--;
 	}
@@ -49,11 +48,11 @@ t_arg	**del_redir(t_arg *arg)
 		if (tmp->next_arg->nbr == -1 || tmp->next_arg->nbr == -2)
 		{
 			larg_del_next(&tmp);
-			ft_make_file(tmp->next_arg->arg);
 			larg_del_next(&tmp);
 			i--;
 		}
-		tmp = tmp->next_arg;
+		else
+			tmp = tmp->next_arg;
 	}
 	return (rtn);
 }
@@ -65,9 +64,9 @@ int		ft_redirection(char *str, char *filename)
 	if (!filename)
 		return (-1);
 	if (access(filename, R_OK | W_OK) != 0)
-		file = open(filename, O_CREAT | O_WRONLY);
+		file = open(filename, O_CREAT | O_RDWR);
 	else
-		file = open(filename, O_RDONLY | O_WRONLY | O_TRUNC);
+		file = open(filename, O_RDWR | O_TRUNC);
 	if (file == -1)
 		return (-1);
 	write(file, str, len(str));

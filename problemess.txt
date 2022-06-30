@@ -35,3 +35,26 @@ ne renvoie pas d'erreur simplement ne pas prendre en compte l'espace si rien der
 6 =
 
 Gerer l'interpretation de ~/ pour cd
+
+
+7 = 
+
+reflechir a la suppresion de cmd0 si command not found ou non si y'a un pipe
+
+
+facultatif (peut etre) =
+
+verifier les permission des fichier creer via les redirections
+
+
+
+8=
+
+Tester cd test6 RM ../test6
+Cd ~
+Cd -
+
+
+9= 
+
+si : unset **** | ****    ne pas exec unset
