@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: avillar <avillar@student.42.fr>            +#+  +:+       +#+         #
+#    By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 13:12:34 by thbierne          #+#    #+#              #
-#    Updated: 2022/06/27 15:43:40 by avillar          ###   ########.fr        #
+#    Updated: 2022/06/30 10:33:57 by thbierne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRCS =	srcs/alloc_arg.c			\
 		srcs/create_redi.c			\
 		srcs/export.c				\
 		srcs/export_utils.c			\
+		srcs/replace_home.c			\
 
 OBJS = $(SRCS:.c=.o)
 

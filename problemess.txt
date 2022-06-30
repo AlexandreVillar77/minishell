@@ -1,4 +1,4 @@
-1	=
+1	=	DONE
 
 > xxxxx1 > xxxxx2
  = cree xxx1 et xxx2 vide et return;
@@ -7,15 +7,15 @@
 2	=	
 
 cat | cat | ls
-ls premiere sortie pusi double cat;
+ls premiere sortie puis double cat;
 
 
-3	=
+3	=	DONE
 
 env -i ./minishell = segfault
 
 
-4	=
+4	=	DONE
 
 avec env -i
 PWD=/goinfre/avillar	
@@ -25,14 +25,14 @@ _=/usr/bin/env
 voir si pas des residu dans env
 
 
-5 = 
+5 =		DONE
 
 avec echo si phrase avec espace a la fin sans rien derriere
 sans ecrire dans des quote erreur quote not close alors que bash 
 ne renvoie pas d'erreur simplement ne pas prendre en compte l'espace si rien derriere
 
 
-6 =
+6 =		DONE
 
 Gerer l'interpretation de ~/ pour cd
 

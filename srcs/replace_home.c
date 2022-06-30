@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   replace_dollar.c                                   :+:      :+:    :+:   */
+/*   replace_home.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/01 13:54:59 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/30 11:04:03 by thbierne         ###   ########.fr       */
+/*   Created: 2022/06/30 09:59:01 by thbierne          #+#    #+#             */
+/*   Updated: 2022/06/30 11:03:57 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*join_line_read1(char *line_read, t_env *tmp, int i)
+char	*join_line_home1(char *line_read, t_env *tmp, int i)
 {
 	char	*cpy;
 	int		y;
@@ -22,7 +22,7 @@ char	*join_line_read1(char *line_read, t_env *tmp, int i)
 	while (line_read[y])
 		y++;
 	if (tmp)
-		cpy = malloc(sizeof(char) * ((y - len(tmp->name)) + len(tmp->var) + 1));
+		cpy = malloc(sizeof(char) * ((y - 1) + len(tmp->var) + 1));
 	else
 	{
 		y = i;
@@ -38,7 +38,7 @@ char	*join_line_read1(char *line_read, t_env *tmp, int i)
 	return (cpy);
 }
 
-char	*join_line_read2(t_env *tmp, char *cpy, int *i, int *y)
+char	*join_line_home2(t_env *tmp, char *cpy, int *i, int *y)
 {
 	int		nbr_n;
 
@@ -49,21 +49,21 @@ char	*join_line_read2(t_env *tmp, char *cpy, int *i, int *y)
 		*y = *y + 1;
 		nbr_n++;
 	}
-	*i = *i + len(tmp->name);
+	*i = *i + 1;
 	return (cpy);
 }
 
-char	*join_line_read(char *line_read, t_env *tmp, int i)
+char	*join_line_home(char *line_read, t_env *tmp, int i)
 {
 	char	*cpy;
 	int		y;
 
-	cpy = join_line_read1(line_read, tmp, i);
+	cpy = join_line_home1(line_read, tmp, i);
 	y = -1;
 	while (++y < i)
 		cpy[y] = line_read[y];
 	if (tmp)
-		cpy = join_line_read2(tmp, cpy, &i, &y);
+		cpy = join_line_home2(tmp, cpy, &i, &y);
 	else
 	{
 		while (line_read[i] && line_read[i] != ' ' && line_read[i] != '<'
@@ -82,36 +82,31 @@ char	*join_line_read(char *line_read, t_env *tmp, int i)
 	return (cpy);
 }
 
-t_env	*check_dollar_t_env(char *line_read, t_env *first_env, int i)
+t_env	*check_home_t_env(t_env *first_env)
 {
-	int		y;
-	int		z;
+	int		i;
+	char	*home;
 	t_env	*tmp;
 
 	tmp = first_env;
+	home = ft_strdup("HOME");
 	while (tmp)
 	{
-		y = i;
-		y++;
-		z = 0;
-		while (line_read[y] == tmp->name[z] && line_read[y] && tmp->name[z])
+		i = 0;
+		while (home[i] == tmp->name[i] && home[i] && tmp->name[i])
+			i++;
+		if (tmp->name[i] == '=')
 		{
-			y++;
-			z++;
-		}
-		if (tmp->name[z] == '=' || tmp->name[z] == '\0')
-		{
-			if (line_read[y] == ' ' || line_read[y] == '='
-				|| !line_read[y] || !tmp->name[z] || line_read[y] == '\''
-				|| line_read[y] == '\"')
-				return (tmp);
+			free(home);
+			return (tmp);
 		}
 		tmp = tmp->next_env;
 	}
+	free(home);
 	return (NULL);
 }
 
-char	*replace_dollar(char *line_read, t_env *first_env, int mode)
+char	*replace_home(t_env *first_env, char *line_read)
 {
 	int		i;
 	t_env	*tmp;
@@ -120,16 +115,16 @@ char	*replace_dollar(char *line_read, t_env *first_env, int mode)
 	i = -1;
 	while (line_read[++i])
 	{
-		if ((line_read[i] == '\'' || line_read[i] == '\"') && mode == 0)
+		if (line_read[i] == '\'' || line_read[i] == '\"')
 		{
 			c = line_read[i++];
 			while (line_read[i] != c)
 				i++;
 		}
-		else if (line_read[i] == '$')
+		else if (line_read[i] == '~')
 		{
-			tmp = check_dollar_t_env(line_read, first_env, i);
-			line_read = join_line_read(line_read, tmp, i);
+			tmp = check_home_t_env(first_env);
+			line_read = join_line_home(line_read, tmp, i);
 			if (tmp != NULL)
 				i = i + len(tmp->var);
 			i--;

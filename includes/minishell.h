@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:27:38 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/27 15:58:08 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/30 10:37:07 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,7 @@ t_env		*ft_set_base_env();
 
 t_llist		*create_redi(t_llist *list);
 void		check_files(char *filename, int mode);
+char		*replace_home(t_env *first_env, char *line_read);
 
 /* builtins */
 

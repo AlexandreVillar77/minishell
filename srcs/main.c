@@ -6,7 +6,7 @@
 /*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:22:02 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/27 15:44:21 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/06/30 11:04:28 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			if (check_syntaxe(line_read) == 1)
 			{
+				line_read = replace_home(list->first_env, line_read);
 				line_read = replace_dollar(line_read, list->first_env, 0);
 				if (line_read[0])
 				{
