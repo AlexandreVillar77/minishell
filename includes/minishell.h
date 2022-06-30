@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:27:38 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/30 10:37:07 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/06/30 13:51:41 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,7 @@ int			ft_echo(t_cmd *cmd);
 //fctnl_manager.c
 int			fctnl_manager(t_llist *list);
 int			check_redir(t_arg *arg);
+char		*get_fd_name(t_arg *arg);
 
 //exit.c
 int			ft_exit(t_llist *list);
@@ -241,5 +242,8 @@ int		export_checker(t_arg *arg);
 int		export_fullchecker(t_arg *arg);
 void	print_experror(t_arg *arg, int er);
 int		ft_export(t_llist **list, t_arg  **tmp);
+
+//ft_exec_other.c
+int		ft_exec_others(t_llist *list);
 
 # endif
