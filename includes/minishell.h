@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:27:38 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/30 13:51:41 by avillar          ###   ########.fr       */
+/*   Updated: 2022/07/11 10:39:59 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,12 @@ t_env		*ft_set_base_env();
 t_llist		*create_redi(t_llist *list);
 void		check_files(char *filename, int mode);
 char		*replace_home(t_env *first_env, char *line_read);
+
+t_llist		*check_and_add_last_redi(t_llist *list);
+t_llist		*add_cmd_to_last_arg(t_llist *list, t_cmd *cmd_cpy, int *count);
+int			count_redi(t_cmd *cmd, int count);
+t_llist		*delete_if_redi_cmd(t_llist *list);
+t_cmd		*delete_first_t_cmd_for_arg(t_cmd *list);
 
 /* builtins */
 

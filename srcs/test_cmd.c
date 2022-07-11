@@ -6,7 +6,7 @@
 /*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 13:41:37 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/27 10:49:16 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/07/11 10:20:57 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,11 @@ char	*test_cmd(t_llist *list, char *read)
 		free(join);
 		i++;
 	}
-	if (access(read, X_OK) != 0)
+	/*if (access(read, X_OK) != 0)
 	{
 		write(2, read, ft_strlen(read));
 		write(2, ": command not found\n", 20);
-	}
+	}*/
 	free(read);
 	return (NULL);
 }

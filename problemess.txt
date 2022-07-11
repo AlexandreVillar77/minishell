@@ -37,7 +37,7 @@ ne renvoie pas d'erreur simplement ne pas prendre en compte l'espace si rien der
 Gerer l'interpretation de ~/ pour cd
 
 
-7 = 
+7 = DONE
 
 reflechir a la suppresion de cmd0 si command not found ou non si y'a un pipe
 

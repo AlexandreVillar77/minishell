@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exec_other.C                                    :+:      :+:    :+:   */
+/*   ft_exec_other.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 13:26:31 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/30 17:29:58 by avillar          ###   ########.fr       */
+/*   Updated: 2022/07/06 10:00:33 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,13 +151,13 @@ void		process01(t_llist *list, int fd, char *cmd, t_arg *tmp_arg)
 int	ft_exec_others(t_llist *list)
 {
 	int		fd;
-	int		i;
+	//int		i;
 	int		status;
 	pid_t	child;
 	t_arg	*tmp;
 
 	tmp = list->first_cmd->next_arg;
-	i = -1;
+	//i = -1;
 	fd = 0;
 	if (check_redir(tmp) == -1 || check_redir(tmp) == -2)
 		fd = get_fd(tmp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:22:02 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/30 17:30:49 by avillar          ###   ########.fr       */
+/*   Updated: 2022/07/11 11:40:23 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_llist	*alloc_cmd(t_llist *list, char *line_read)
 			list = alloc_str(list, line_read);
 	}
 	list = sort_redi(list);
+	list = check_and_add_last_redi(list);
 	return (list);
 }
 
@@ -79,12 +80,15 @@ int	main(int argc, char **argv, char **envp)
 					list = alloc_cmd(list, line_read);
 					free(line_read);
 					line_read = NULL;
-					if (list->first_cmd->next_arg)
-						list->first_cmd->next_arg = *(del_redir(list->first_cmd->next_arg));
-					print_t_cmd(list->first_cmd);
-					fctnl_manager(list);
-					//exec_llist(list);
-					list = free_llist_cmd(list);
+					if (list->first_cmd)
+					{
+						if (list->first_cmd->next_arg)
+							list->first_cmd->next_arg = *(del_redir(list->first_cmd->next_arg));
+						print_t_cmd(list->first_cmd);
+						fctnl_manager(list);
+						//exec_llist(list);
+						list = free_llist_cmd(list);
+					}
 				}
 			}
 		}
