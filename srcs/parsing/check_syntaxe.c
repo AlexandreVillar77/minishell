@@ -6,11 +6,11 @@
 /*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 10:41:06 by thbierne          #+#    #+#             */
-/*   Updated: 2022/07/14 17:03:57 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/06/27 15:43:04 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
 int	check_quote(char *line_read, int i, char c)
 {

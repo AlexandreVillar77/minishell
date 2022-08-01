@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 12:31:32 by thbierne          #+#    #+#             */
-/*   Updated: 2022/07/14 17:03:52 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:22:59 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
 t_llist	*alloc_pipe(t_llist *list)
 {

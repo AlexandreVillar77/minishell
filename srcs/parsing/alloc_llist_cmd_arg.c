@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_llist_cmd_arg.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 15:38:25 by thbierne          #+#    #+#             */
-/*   Updated: 2022/07/14 17:03:46 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/06/24 15:45:18 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
 t_cmd	*add_first_t_cmd(char *str, int nbr)
 {

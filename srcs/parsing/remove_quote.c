@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 10:38:21 by thbierne          #+#    #+#             */
-/*   Updated: 2022/07/14 17:04:13 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:23:43 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
 char	*remove_quote(t_llist *list, char *read_line)
 {

@@ -6,11 +6,11 @@
 /*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:41:42 by thbierne          #+#    #+#             */
-/*   Updated: 2022/07/14 17:03:59 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/06/27 10:11:32 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
 t_llist	*create_redi(t_llist *list)
 {

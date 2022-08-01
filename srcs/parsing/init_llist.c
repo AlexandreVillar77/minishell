@@ -6,7 +6,7 @@
 /*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 13:41:04 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/27 11:11:08 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/07/27 16:50:31 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_llist	*init_llist(char **envp)
 	list->new_cmd = 1;
 	list->first_cmd = NULL;
 	list->first_env = NULL;
+	list->first_exe = NULL;
 	list->path = NULL;
 	list->env = NULL;
 	list->first_exe = add_first_t_exe("echo");

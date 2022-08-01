@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_case_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 15:51:33 by thbierne          #+#    #+#             */
-/*   Updated: 2022/07/14 17:04:02 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:23:12 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
 t_llist	*ft_case_cmd_found(t_llist *list, char *cmd)
 {

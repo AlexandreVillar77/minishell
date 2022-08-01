@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_llist.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 12:31:46 by thbierne          #+#    #+#             */
-/*   Updated: 2022/07/14 17:04:07 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/08/01 13:45:12 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
 t_llist	*free_llist_exe(t_llist *list)
 {
@@ -45,7 +45,7 @@ t_llist	*free_llist_tab(t_llist *list, int i)
 	if (i == 1 || i == 2)
 	{
 		y = 0;
-		while (list->env[y][0])
+		while (list->env[y])
 			free(list->env[y++]);
 		free(list->env[y++]);
 		free(list->env);

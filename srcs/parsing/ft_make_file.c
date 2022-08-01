@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   alloc_arg.c                                        :+:      :+:    :+:   */
+/*   ft_make_file.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/22 11:35:31 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/27 15:53:51 by avillar          ###   ########.fr       */
+/*   Created: 2022/06/22 15:18:43 by avillar           #+#    #+#             */
+/*   Updated: 2022/06/23 15:00:22 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-
-t_llist	*alloc_arg(t_llist *list, char *read_line)
+char	*recup_argx(t_arg *arg)
 {
-	char	*str;
-	t_cmd	*cmd;
-	int		y;
+	t_arg	*tmp;
 
-	str = NULL;
-	y = list->index;
-	str = find_str(list, read_line, str, y);
-	cmd = list->first_cmd;
-	while (cmd->next_cmd)
-		cmd = cmd->next_cmd;
-	if (!cmd->next_arg)
-		cmd->next_arg = add_first_t_arg(str, 0);
+	tmp = arg;
+	return (tmp->next_arg->arg);
+}
+
+int	ft_make_file(char *filename)
+{
+	int	file;
+
+	if (!filename)
+		return (-1);
+	if (access(filename, R_OK | W_OK) != 0)
+		file = open(filename, O_CREAT | O_WRONLY);
 	else
-		cmd->next_arg = add_last_t_arg(cmd->next_arg, str, 0);
-	free(str);
-	return (list);
+		file = open(filename, O_RDONLY | O_WRONLY | O_TRUNC);
+	if (file == -1)
+		return (-1);
+	close(file);
+	return (0);
 }

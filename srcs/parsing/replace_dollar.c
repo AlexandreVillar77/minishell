@@ -6,11 +6,11 @@
 /*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 13:54:59 by thbierne          #+#    #+#             */
-/*   Updated: 2022/07/14 17:04:16 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/06/30 11:04:03 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
 char	*join_line_read1(char *line_read, t_env *tmp, int i)
 {
