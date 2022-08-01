@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:27:38 by avillar           #+#    #+#             */
-/*   Updated: 2022/07/11 10:39:59 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/08/01 13:48:37 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,9 @@ t_llist		*add_cmd_to_last_arg(t_llist *list, t_cmd *cmd_cpy, int *count);
 int			count_redi(t_cmd *cmd, int count);
 t_llist		*delete_if_redi_cmd(t_llist *list);
 t_cmd		*delete_first_t_cmd_for_arg(t_cmd *list);
+
+char	*read_line();
+void	write_line_read(int fd[2]);
 
 /* builtins */
 
