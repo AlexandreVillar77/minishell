@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:27:38 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/01 13:48:37 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/02 11:04:27 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,8 @@ int			ft_exit(t_llist *list);
 int			ft_penv(t_llist *list);
 
 //pwd.c
+void 		ft_update_PWD(t_llist **list);
+void 		ft_update_OLDPWD(t_llist **list);
 int			ft_pwd(t_llist *list);
 
 //ft_make_file.c
@@ -240,10 +242,12 @@ char		*recup_argx(t_arg *arg);
 int			ft_make_file(char *filename);
 
 //chdir.c
+char		*get_oldpwd(t_llist *list);
 int			ft_cd(t_llist *list);
 
 //unset.c
 int			ft_unset(t_llist *list);
+void		del_OLDPWD(t_env **env, t_llist *list);
 
 //ft_export.c && export_utils.c
 int		ft_fullexport(t_llist **list);
