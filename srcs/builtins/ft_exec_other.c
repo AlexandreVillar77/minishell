@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_other.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 13:26:31 by avillar           #+#    #+#             */
-/*   Updated: 2022/07/14 17:03:10 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/08/02 10:53:01 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
 int	get_fd(t_arg *arg)
 {
@@ -130,7 +130,7 @@ void		process01(t_llist *list, int fd, char *cmd, t_arg *tmp_arg)
 	if (fd != 0)
 		close (fd);
 	if (access(list->first_cmd->cmd, X_OK) == 0)
-		execve(list->first_cmd->cmd, arg_tab,list->env);
+		execve(list->first_cmd->cmd, arg_tab, list->env);
 	else
 	{
 		while (list->path[++i][0] && list->path != NULL)

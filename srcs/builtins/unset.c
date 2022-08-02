@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 10:24:43 by avillar           #+#    #+#             */
-/*   Updated: 2022/07/14 17:03:22 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/08/02 11:06:37 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
-void	del_env(t_env **env)
+void	del_env(t_env **env, t_llist *list, int m)
 {
 	t_env	*tmp;
 
@@ -21,10 +21,14 @@ void	del_env(t_env **env)
 		return ;
 	if ((*env)->next_env)
 		*env = (*env)->next_env;
+	if (ft_strncmp((*env)->name, "OLDPWD=", 7) == 0 && m == 0)
+		list->lastpos = NULL;
+	if (ft_strncmp((*env)->name, "PWD=", 4) == 0)
+		del_OLDPWD(env, list);
 	free(tmp);
 }
 
-void	delete_lenv(t_env **env, int x)
+void	delete_lenv(t_env **env, int x, t_llist *list, int m)
 {
 	t_env	*tmp;
 	t_env	*todel;
@@ -39,7 +43,31 @@ void	delete_lenv(t_env **env, int x)
 	}
 	todel = tmp->next_env;
 	tmp->next_env = todel->next_env;
+	if (ft_strncmp(todel->name, "OLDPWD=", 7) == 0 && m == 0)
+		list->lastpos = NULL;
+	if (ft_strncmp(todel->name, "PWD=", 4) == 0)
+		del_OLDPWD(env, list);
 	free(todel);
+}
+
+void	del_OLDPWD(t_env **env, t_llist *list)
+{
+	t_env	*tmp;
+	int		x;
+
+	x = 0;
+	tmp = *env;
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->name, "OLDPWD=", ft_strlen(tmp->name)) == 0)
+			break ;
+		tmp = tmp->next_env;
+		x++;
+	}
+	if (x == 0)
+		del_env(env, list, 1);
+	else
+		delete_lenv(env, x, list, 1);
 }
 
 int		ft_unset(t_llist *list)
@@ -60,9 +88,9 @@ int		ft_unset(t_llist *list)
 			if (ft_strncmp(arg->arg, tmp->name, ft_strlen(arg->arg)) == 0)
 			{
 				if (x == 0)
-					del_env(&list->first_env);
+					del_env(&list->first_env, list, 0);
 				else
-					delete_lenv(&list->first_env, x);
+					delete_lenv(&list->first_env, x, list, 0);
 				break ;
 			}
 			x++;
