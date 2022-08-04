@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 13:26:31 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/04 11:58:10 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/04 14:12:54 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,11 @@ char	**make_arg_tab(t_arg *arg, char *cmd)
 {
 	t_arg	*tmp;
 	int		i;
+	int		x;
 	char 	**rtn;
 
 	i = 1;
+	x = 1;
 	tmp = arg;
 	rtn = malloc(sizeof(char*) * (get_nbarg(arg) + 2));
 	if (!rtn)
@@ -82,14 +84,18 @@ char	**make_arg_tab(t_arg *arg, char *cmd)
 	rtn[0] = ft_cpy(cmd);
 	while (i - 1 < get_nbarg(arg) && tmp->arg)
 	{
-		rtn[i] = ft_cpy(tmp->arg);
+		if (tmp->nbr > -1)
+		{
+			rtn[x] = ft_cpy(tmp->arg);
+			x++;
+		}
 		i++;
 		if (tmp->next_arg)
 			tmp = tmp->next_arg;
 		else
 			break ;
 	}
-	rtn[i] = NULL;
+	rtn[x] = NULL;
 	return (rtn);
 }
 

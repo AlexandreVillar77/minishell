@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:17:23 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/04 12:52:58 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/04 14:34:40 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,43 @@ int	our_built(t_llist *list, t_pipe *pip)
 		return (-3);
 }
 
+int	check_redir_pipe(t_llist *list, t_pipe *pip)
+{
+	t_arg	*tmp;
+	char	*filename;
+
+	if (!list->first_cmd->next_arg)
+		return (-1);
+	tmp = list->first_cmd->next_arg;
+	if (check_redir(tmp) == -1)
+	{
+		while (tmp->nbr != -1)
+			tmp = tmp->next_arg;
+		filename = ft_strdup(tmp->next_arg->arg);
+		printf("filename = %s\n", "ezrez");
+		if (access(filename, R_OK | W_OK) != 0)
+			pip->fd = open(filename, O_CREAT | O_RDWR);
+		else
+			pip->fd = open(filename, O_RDWR | O_TRUNC);
+		if (pip->fd == -1)
+			return (-1);
+		else
+			return (1);
+	}
+	else
+		return (0);
+}
+
 void	childpro1_bonus(t_llist *list, t_pipe *pip, char **arg_tab)
 {
-	if (dup2(pip->end[1], STDOUT_FILENO) < 0)
-		return (perror("Dup2: "));
+	if (check_redir_pipe(list, pip) == 1)
+	{
+		if (dup2(pip->fd, STDOUT_FILENO) < 0)
+			return (perror("Dup2: "));
+	}
+	else
+		if (dup2(pip->end[1], STDOUT_FILENO) < 0)
+			return (perror("Dup2: "));
 	ft_closing_end(pip);
 	if (our_built(list, pip) == 0)
 		exit (EXIT_SUCCESS);
@@ -106,8 +139,16 @@ void	childpro1_bonus(t_llist *list, t_pipe *pip, char **arg_tab)
 
 void	childpro2_bonus(t_llist *list, t_pipe *pip, char **arg_tab, int j)
 {
-	if (dup2(pip->end[(j - 2)], STDIN_FILENO) < 0)
-		return (perror("Dup2: "));
+	if (check_redir_pipe(list, pip) == 1)
+	{
+		if (dup2(pip->end[(j - 2)], STDIN_FILENO) < 0
+			|| dup2(pip->fd, STDOUT_FILENO) < 0)
+			write(2, "test\n", 5);
+			return (perror("Dup2: "));
+	}
+	else
+		if (dup2(pip->end[(j - 2)], STDIN_FILENO) < 0)
+			return (perror("Dup2: "));
 	ft_closing_end(pip);
 	if (our_built(list, pip) == 0)
 		exit (EXIT_SUCCESS);
@@ -119,8 +160,14 @@ void	childpro2_bonus(t_llist *list, t_pipe *pip, char **arg_tab, int j)
 
 void    childpro_bonus(t_llist *list, t_pipe *pip, char **arg_tab, int j)
 {
-    if ((dup2(pip->end[j + 1], 1) < 0) || (dup2(pip->end[j - 2], 0) < 0))
-        return (perror("Dup2: "));
+	if (check_redir_pipe(list, pip) == 1)
+	{
+		if ((dup2(pip->fd, STDOUT_FILENO) < 0) || (dup2(pip->end[j - 2], 0) < 0))
+			return (perror("Dup2: "));
+	}
+	else
+    	if ((dup2(pip->end[j + 1], 1) < 0) || (dup2(pip->end[j - 2], 0) < 0))
+        	return (perror("Dup2: "));
 	ft_closing_end(pip);
 	if (our_built(list, pip) == 0)
 		exit (EXIT_SUCCESS);
