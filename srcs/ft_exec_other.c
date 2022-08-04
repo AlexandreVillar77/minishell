@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exec_other.c                                    :+:      :+:    :+:   */
+/*   ft_exec_other.C                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 13:26:31 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/03 10:19:17 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/04 11:58:10 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ char	*get_cmd_name(char *str)
 	i = 0;
 	while (str[x] != '/')
 		x--;
+	if (str[0] != '/')
+		return (str);
 	rtn = malloc(sizeof(char) * (ft_strlen(str) - x + 1));
 	if (!rtn)
 		exit (EXIT_FAILURE);

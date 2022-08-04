@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:17:23 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/03 16:05:24 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/04 12:52:58 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ t_cmd	*get_t_cmd(t_llist *list, t_pipe *pip)
 	t_cmd	*tmp;
 	int		x;
 
-	x = 0;
+	x = 1;
 	tmp = list->first_cmd;
 	while (tmp && x < pip->x)
 	{
+		//printf("tmp = %s\n", tmp->cmd);
 		tmp = tmp->next_cmd;
 		x++;
 	}
@@ -45,7 +46,7 @@ int		exec_bypath(t_llist *list, t_pipe *pip, char **arg_tab)
 	int		i;
 
 	i = -1;
-	cmd = get_t_cmd(list, pip);
+	cmd = list->first_cmd;//get_t_cmd(list, pip);
 	while (list->path[++i][0] && list->path != NULL)
 	{
 		pip->cmd = ft_strjoin(list->path[i], get_cmd_name(cmd->cmd));
@@ -60,11 +61,43 @@ int		exec_bypath(t_llist *list, t_pipe *pip, char **arg_tab)
 	exit (EXIT_FAILURE);
 }
 
+int	our_built(t_llist *list, t_pipe *pip)
+{
+	t_llist		*tmp;
+	static int	i;
+
+	tmp = list;
+	i = 1;
+	while (i < pip->x)
+	{
+		tmp->first_cmd = tmp->first_cmd->next_cmd;
+		i++;
+	}
+	if (ft_strncmp(pip->cmd, "echo", 4) == 0)
+		return (ft_echo(tmp->first_cmd));
+	else if (ft_strncmp(pip->cmd, "env", 3) == 0)
+		return (ft_penv(tmp));
+	else if (ft_strncmp(pip->cmd, "pwd", 3) == 0)
+		return (ft_pwd(tmp));
+	else if (ft_strncmp(pip->cmd, "cd", 2) == 0)
+		return (ft_cd(tmp));
+	else if (ft_strncmp(pip->cmd, "export", 6) == 0)
+		return (ft_fullexport(&tmp));
+	else if (ft_strncmp(pip->cmd, "unset", 5) == 0)
+		return (ft_unset(tmp));
+	else if (ft_strncmp(pip->cmd, "exit", 4) == 0)
+		return (ft_exit(list));
+	else
+		return (-3);
+}
+
 void	childpro1_bonus(t_llist *list, t_pipe *pip, char **arg_tab)
 {
 	if (dup2(pip->end[1], STDOUT_FILENO) < 0)
 		return (perror("Dup2: "));
 	ft_closing_end(pip);
+	if (our_built(list, pip) == 0)
+		exit (EXIT_SUCCESS);
 	if (access(pip->cmd, X_OK) == 0)
 		execve(pip->cmd, arg_tab, list->env);
 	else
@@ -76,42 +109,26 @@ void	childpro2_bonus(t_llist *list, t_pipe *pip, char **arg_tab, int j)
 	if (dup2(pip->end[(j - 2)], STDIN_FILENO) < 0)
 		return (perror("Dup2: "));
 	ft_closing_end(pip);
+	if (our_built(list, pip) == 0)
+		exit (EXIT_SUCCESS);
 	if (access(pip->cmd, X_OK) == 0)
 		execve(pip->cmd, arg_tab, list->env);
 	else
 		exec_bypath(list, pip, arg_tab);
 }
 
-/*void		process01(t_llist *list, int fd, char *cmd, t_arg *tmp_arg)
+void    childpro_bonus(t_llist *list, t_pipe *pip, char **arg_tab, int j)
 {
-	char	**arg_tab;
-	int		i;
-
-	i = 0;
-	arg_tab = make_arg_tab(tmp_arg, cmd);
-	if (fd != 0)
-		if (dup2(fd, STDOUT_FILENO) < 0)
-			exit (EXIT_FAILURE);
-	if (fd != 0)
-		close (fd);
-	if (access(cmd, X_OK) == 0)
-		execve(cmd, arg_tab, list->env);
-	else
-	{
-		while (list->path[++i][0] && list->path != NULL)
-		{
-			cmd = ft_strjoin(list->path[i], get_cmd_name(list->first_cmd->cmd));
-			if (!cmd)
-				break ;
-			if (access(cmd, X_OK) == 0)
-				execve(cmd, arg_tab, list->env);
-			free(cmd);
-		}
-	}
-	printf("command not found: %s\n", list->first_cmd->cmd);
-	free (arg_tab);
-	exit (EXIT_FAILURE);
-}*/
+    if ((dup2(pip->end[j + 1], 1) < 0) || (dup2(pip->end[j - 2], 0) < 0))
+        return (perror("Dup2: "));
+	ft_closing_end(pip);
+	if (our_built(list, pip) == 0)
+		exit (EXIT_SUCCESS);
+    else if (access(pip->cmd, X_OK) == 0)
+        execve(pip->cmd, arg_tab, list->env);
+    else
+		exec_bypath(list, pip, arg_tab);
+}
 
 void	child_manager(t_llist *list, int j, t_pipe *pip, char **arg_tab)
 {
@@ -120,16 +137,16 @@ void	child_manager(t_llist *list, int j, t_pipe *pip, char **arg_tab)
 		childpro1_bonus(list, pip, arg_tab);
 		exit(EXIT_SUCCESS);
 	}
+	else if (pip->x < count_cmds(list))
+	{
+		childpro_bonus(list, pip, arg_tab, j);
+		exit(EXIT_SUCCESS);
+	}
 	else
 	{
 		childpro2_bonus(list, pip, arg_tab, j);
 		exit(EXIT_SUCCESS);
 	}
-	/*else if (pip->x < count_cmds(list))
-	{
-		childpro_bonus(list, j, pip, arg_tab, j);
-		exit(EXIT_SUCCESS);
-	}*/
 }
 
 void	init_pipe(t_pipe *pip)
@@ -206,7 +223,7 @@ int	count_pipe(t_llist *list)
 	t_cmd	*tmp;
 	int		x;
 
-	x = -1;
+	x = 0;
 	tmp = list->first_cmd;
 	while (tmp)
 	{
@@ -218,7 +235,7 @@ int	count_pipe(t_llist *list)
 
 t_pipe	*pip_init(t_pipe *pip, t_llist *list)
 {
-	pip->x = 0;
+	pip->x = 1;
 	pip->cmd = get_cmd_name(list->first_cmd->cmd);
 	pip->npip = count_pipe(list);
 	pip->fd = 0;

@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 11:32:21 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/03 16:20:47 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/04 12:00:54 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	count_cmds(t_llist *list)
 		tmp = tmp->next_cmd;
 		i++;
 	}
-	printf("i == %d\n", i);
 	return (i);
 }
 
@@ -64,25 +63,28 @@ int	check_redir(t_arg *arg)
 
 int	fctnl_manager(t_llist *list)
 {
-	if (strncmp(list->first_cmd->cmd, "echo", 4) == 0)
-		return (ft_echo(list->first_cmd));
-	if (strncmp(list->first_cmd->cmd, "cd", 2) == 0)
-		return (ft_cd(list));
-	if (strncmp(list->first_cmd->cmd, "pwd", 3) == 0)
-		return (ft_pwd(list));
-	if (strncmp(list->first_cmd->cmd, "export", 6) == 0)
-		return (ft_fullexport(&list));
-	if (strncmp(list->first_cmd->cmd, "unset", 5) == 0)
-		return (ft_unset(list));
-	if (strncmp(list->first_cmd->cmd, "env", 3) == 0)
-		return (ft_penv(list));
-	if (strncmp(list->first_cmd->cmd, "exit", 4) == 0)
-		return (ft_exit(list));
-	else if (count_cmds(list) == 1)
-		return (ft_exec_others(list));
+	if (count_cmds(list) == 1)
+	{
+		if (strncmp(list->first_cmd->cmd, "echo", 4) == 0)
+			return (ft_echo(list->first_cmd));
+		if (strncmp(list->first_cmd->cmd, "cd", 2) == 0)
+			return (ft_cd(list));
+		if (strncmp(list->first_cmd->cmd, "pwd", 3) == 0)
+			return (ft_pwd(list));
+		if (strncmp(list->first_cmd->cmd, "export", 6) == 0)
+			return (ft_fullexport(&list));
+		if (strncmp(list->first_cmd->cmd, "unset", 5) == 0)
+			return (ft_unset(list));
+		if (strncmp(list->first_cmd->cmd, "env", 3) == 0)
+			return (ft_penv(list));
+		if (strncmp(list->first_cmd->cmd, "exit", 4) == 0)
+			return (ft_exit(list));
+		else
+			return (ft_exec_others(list));
+	}
 	else
 	{
-		printf("pipex\n");
 		return (main_pip(list));
 	}
+	
 }
