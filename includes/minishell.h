@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:27:38 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/02 11:04:27 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/03 16:21:00 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,16 @@ typedef struct s_arg t_arg;
 typedef struct s_exe t_exe;
 typedef struct s_env t_env;
 typedef struct s_cmd t_cmd;
+typedef	struct s_pipe t_pipe;
+
+struct s_pipe
+{
+	int			*end;
+	int			fd;
+	char		*cmd;
+	int			x;
+	int			npip;
+};
 
 struct s_arg
 {
@@ -79,6 +89,7 @@ struct s_llist
 	char		*lastpos;
 	int			index;
 	int			new_cmd;
+	t_pipe		*pip;
 	t_cmd		*first_cmd;
 	t_env		*first_env;
 	t_exe		*first_exe;
@@ -111,6 +122,9 @@ t_arg		*add_last_t_arg(t_arg *list, char *str, int nbr);
 void		larg_del_next(t_arg **arg);
 void		larg_del_first(t_arg **arg);
 t_arg		**del_redir(t_arg *arg);
+t_cmd		*larg_del_f(t_cmd *cmd);
+t_arg        *larg_del_n(t_arg *arg);
+t_llist      *del_redirection(t_llist *list);
 
 /* check syntaxe */
 
@@ -213,8 +227,8 @@ int			count_redi(t_cmd *cmd, int count);
 t_llist		*delete_if_redi_cmd(t_llist *list);
 t_cmd		*delete_first_t_cmd_for_arg(t_cmd *list);
 
-char	*read_line();
-void	write_line_read(int fd[2]);
+char		*read_line();
+void		write_line_read(int fd[2]);
 
 /* builtins */
 
@@ -222,6 +236,7 @@ void	write_line_read(int fd[2]);
 int			ft_echo(t_cmd *cmd);
 
 //fctnl_manager.c
+int			count_cmds(t_llist *list);
 int			fctnl_manager(t_llist *list);
 int			check_redir(t_arg *arg);
 char		*get_fd_name(t_arg *arg);
@@ -250,13 +265,20 @@ int			ft_unset(t_llist *list);
 void		del_OLDPWD(t_env **env, t_llist *list);
 
 //ft_export.c && export_utils.c
-int		ft_fullexport(t_llist **list);
-int		export_checker(t_arg *arg);
-int		export_fullchecker(t_arg *arg);
-void	print_experror(t_arg *arg, int er);
-int		ft_export(t_llist **list, t_arg  **tmp);
+int			ft_fullexport(t_llist **list);
+int			export_checker(t_arg *arg);
+int			export_fullchecker(t_arg *arg);
+void		print_experror(t_arg *arg, int er);
+int			ft_export(t_llist **list, t_arg  **tmp);
 
 //ft_exec_other.c
-int		ft_exec_others(t_llist *list);
+int			get_fd(t_arg *arg);
+char		**make_arg_tab(t_arg *arg, char *cmd);
+char		*get_cmd_name(char *str);
+int			ft_exec_others(t_llist *list);
+
+//ft_pipex.c
+int			pipex(t_llist *list, t_pipe *pip);
+int			main_pip(t_llist *list);
 
 # endif

@@ -48,13 +48,15 @@ verifier les permission des fichier creer via les redirections
 
 
 
-8=
+8=  DONE
 
-Tester cd test6 RM ../test6
-Cd ~
 Cd -
 
 
 9= 
 
 si : unset **** | ****    ne pas exec unset
+
+10=
+
+tester les fuites memoires pour et fd open a cause des signaux

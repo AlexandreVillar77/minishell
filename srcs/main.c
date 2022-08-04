@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:22:02 by thbierne          #+#    #+#             */
-/*   Updated: 2022/07/11 11:40:23 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/08/03 16:22:44 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,26 +35,13 @@ t_llist	*alloc_cmd(t_llist *list, char *line_read)
 		else if (list->new_cmd == 0 && line_read[list->index])
 			list = alloc_arg(list, line_read);
 		else if (line_read[list->index])
+		{
 			list = alloc_str(list, line_read);
+		}
 	}
 	list = sort_redi(list);
 	list = check_and_add_last_redi(list);
 	return (list);
-}
-
-char	*rl_gets(char *line_read)
-{
-	if (line_read)
-	{
-		free(line_read);
-		line_read = NULL;
-	}
-	line_read = readline("minishell: ");
-	if (!line_read)
-		printf("\n");
-	if (line_read && *line_read)
-		add_history(line_read);
-	return (line_read);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -69,6 +56,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		line_read = rl_gets(line_read);
+		//line_read = ft_strdup("echo test");
 		if (line_read)
 		{
 			if (check_syntaxe(line_read) == 1)
@@ -82,12 +70,11 @@ int	main(int argc, char **argv, char **envp)
 					line_read = NULL;
 					if (list->first_cmd)
 					{
-						if (list->first_cmd->next_arg)
-							list->first_cmd->next_arg = *(del_redir(list->first_cmd->next_arg));
+						list = del_redirection(list);
 						print_t_cmd(list->first_cmd);
 						fctnl_manager(list);
-						//exec_llist(list);
 						list = free_llist_cmd(list);
+						//break;
 					}
 				}
 			}

@@ -1,0 +1,8 @@
+leaks:
+
+- pwd
+- cd
+- export
+- unset
+- exit
+- redirection dans fcntl
