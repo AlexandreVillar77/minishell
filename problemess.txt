@@ -1,62 +1,68 @@
-1	=	DONE
+1 = 
 
-> xxxxx1 > xxxxx2
- = cree xxx1 et xxx2 vide et return;
-
-
-2	=	
-
-cat | cat | ls
-ls premiere sortie puis double cat;
-
-
-3	=	DONE
-
-env -i ./minishell = segfault
-
-
-4	=	DONE
-
-avec env -i
-PWD=/goinfre/avillar	
-SHLVL=1			// pas forcement =  1
-_=/usr/bin/env
-
-voir si pas des residu dans env
-
-
-5 =		DONE
-
-avec echo si phrase avec espace a la fin sans rien derriere
-sans ecrire dans des quote erreur quote not close alors que bash 
-ne renvoie pas d'erreur simplement ne pas prendre en compte l'espace si rien derriere
-
-
-6 =		DONE
-
-Gerer l'interpretation de ~/ pour cd
-
-
-7 = DONE
-
-reflechir a la suppresion de cmd0 si command not found ou non si y'a un pipe
+exit + int return int;
 
 
 facultatif (peut etre) =
 
 verifier les permission des fichier creer via les redirections
 
-
-
-8=  DONE
-
-Cd -
-
-
-9= 
-
-si : unset **** | ****    ne pas exec unset
-
 10=
 
 tester les fuites memoires pour et fd open a cause des signaux
+
+11= 
+
+gerer syntaxe: echo test > > che
+
+12=
+
+heredoc: verifier apres cat si heredoc et verifier que cat existe avec access()
+
+13= 
+
+si << heredoc + args lancer mais ignore heredoc
+
+14 =
+
+wtf minishell:" " = segfqult
+
+15=
+
+echo $?
+
+16=
+
+unset PATH  videe le tab
+
+17= 
+
+ne pas alncer minishell si juste ecrit minishell sauf si le path est unset
+
+18 = 
+
+export ecrit tout le temps erreur mais cree la variable
+
+19 =
+
+profondeur incrementer SHLVL
++ changer shell en minishell
+
+20 = 
+
+si env -i mettre en dure PATH mais pas l'afficher dans env
+
+21 = 
+
+export tout court afficher export env sur chaque ligne
+
+22 = 
+
+export vriable non initialiser dans la liste de export tout court ;ais pas dans env
+
+23 = 
+
+verif unset
+
+24 = 
+
