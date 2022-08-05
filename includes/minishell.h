@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:27:38 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/03 16:21:00 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/05 10:12:11 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 // <  =  -3;
 // << =  -4;
 // |  =  -5;
+// .tmp = -6
 
 typedef struct s_llist t_llist;
 typedef struct s_arg t_arg;
@@ -204,7 +205,7 @@ void		print_t_exe(t_exe *list);
 void		print_t_env(t_env *list);
 void		print_t_cmd(t_cmd *list);
 
-char		*heredoc(char *eof);
+char		*heredoc(char *eof, t_llist *list, char *line_read);
 char		*case_heredoc(char *eof);
 
 int			ft_redirection(char *str, char *fd);
@@ -230,6 +231,11 @@ t_cmd		*delete_first_t_cmd_for_arg(t_cmd *list);
 char		*read_line();
 void		write_line_read(int fd[2]);
 
+int			count_heredoc(t_cmd *cmd);
+t_llist		*alloc_heredoc(t_llist *list, char *line_read);
+t_llist		*del_heredoc(t_llist *list);
+t_llist		*found_cat(t_cmd *cpy_cmd, t_llist *list);
+
 /* builtins */
 
 // echo.c
@@ -242,6 +248,7 @@ int			check_redir(t_arg *arg);
 char		*get_fd_name(t_arg *arg);
 
 //exit.c
+void		if_tmpdelete(t_llist *list);
 int			ft_exit(t_llist *list);
 
 //env.c

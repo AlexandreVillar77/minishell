@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:22:02 by thbierne          #+#    #+#             */
-/*   Updated: 2022/08/03 16:22:44 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/05 10:29:36 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_llist	*alloc_cmd(t_llist *list, char *line_read)
 	}
 	list = sort_redi(list);
 	list = check_and_add_last_redi(list);
+	list = alloc_heredoc(list, line_read);
 	return (list);
 }
 
@@ -71,12 +72,13 @@ int	main(int argc, char **argv, char **envp)
 					if (list->first_cmd)
 					{
 						list = del_redirection(list);
-						print_t_cmd(list->first_cmd);
+						//print_t_cmd(list->first_cmd);
 						fctnl_manager(list);
-						list = free_llist_cmd(list);
 						//break;
 					}
 				}
+				//if_tmpdelete(list);
+				list = free_llist_cmd(list);
 			}
 		}
 	}

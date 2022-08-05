@@ -6,7 +6,7 @@
 #    By: avillar <avillar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 13:12:34 by thbierne          #+#    #+#              #
-#    Updated: 2022/08/03 16:20:38 by avillar          ###   ########.fr        #
+#    Updated: 2022/08/05 10:23:49 by avillar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRCS =	srcs/alloc_arg.c			\
 		srcs/add_last_redirection.c	\
 		srcs/rl_get.c				\
 		srcs/ft_pipex.c				\
+		srcs/alloc_heredoc.c		\
 
 OBJS = $(SRCS:.c=.o)
 

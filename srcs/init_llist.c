@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 13:41:04 by thbierne          #+#    #+#             */
-/*   Updated: 2022/08/03 15:59:28 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/02 10:37:48 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ t_llist	*init_llist(char **envp)
 	list = (t_llist *)malloc(sizeof(t_llist));
 	list->index = 0;
 	list->new_cmd = 1;
-	list->pip = NULL;
 	list->first_cmd = NULL;
 	list->first_env = NULL;
 	list->first_exe = NULL;

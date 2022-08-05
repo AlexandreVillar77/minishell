@@ -6,7 +6,7 @@
 /*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 13:01:35 by thbierne          #+#    #+#             */
-/*   Updated: 2022/07/27 11:21:09 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/08/05 09:53:51 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	inthandler(int pid)
 {
 	(void)pid;
-	exit (EXIT_SUCCESS);
+	exit (1);
 }
 
 char	*join_char(char *str, char c)
@@ -57,6 +57,7 @@ void	write_heredoc(int fd[2], char *eof)
 			printf("using 'ctrl + d' as a delimiter\n");
 			write(fd[1], join, len(join));
 			close(fd[1]);
+			free(eof);
 			exit (EXIT_SUCCESS);
 		}
 		i = 0;
@@ -67,6 +68,8 @@ void	write_heredoc(int fd[2], char *eof)
 				free(read);
 				write(fd[1], join, len(join));
 				close(fd[1]);
+				free(eof);
+				free(join);
 				exit (EXIT_SUCCESS);
 			}
 			i++;
@@ -85,7 +88,7 @@ void	write_heredoc(int fd[2], char *eof)
 	exit (EXIT_SUCCESS);
 }
 
-char	*heredoc(char *eof)
+char	*heredoc(char *eof, t_llist *list, char *line_read)
 {
 	pid_t	pid;
 	int		fd[2];
@@ -98,7 +101,12 @@ char	*heredoc(char *eof)
 		exit(EXIT_FAILURE);
 	pid = fork();
 	if (pid == 0)
-		write_heredoc(fd, eof);
+	{
+		join = ft_strdup(eof);
+		list = free_llist_cmd(list);
+		free_llist(list, line_read);
+		write_heredoc(fd, join);
+	}
 	else
 	{
 		wait(NULL);

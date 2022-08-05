@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:17:23 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/04 14:34:40 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/05 09:39:12 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	check_redir_pipe(t_llist *list, t_pipe *pip)
 		while (tmp->nbr != -1)
 			tmp = tmp->next_arg;
 		filename = ft_strdup(tmp->next_arg->arg);
-		printf("filename = %s\n", "ezrez");
+	//	printf("filename = %s\n", filename);
 		if (access(filename, R_OK | W_OK) != 0)
 			pip->fd = open(filename, O_CREAT | O_RDWR);
 		else
@@ -143,7 +143,6 @@ void	childpro2_bonus(t_llist *list, t_pipe *pip, char **arg_tab, int j)
 	{
 		if (dup2(pip->end[(j - 2)], STDIN_FILENO) < 0
 			|| dup2(pip->fd, STDOUT_FILENO) < 0)
-			write(2, "test\n", 5);
 			return (perror("Dup2: "));
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 14:18:06 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/03 15:52:09 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/05 10:42:24 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ int	ft_cd(t_llist *list)
 	char	*dest;
 	char	*tmp;
 
+	if (!list->first_cmd->next_arg)
+		return (0);
 	dest = list->first_cmd->next_arg->arg;
 	if (ft_strncmp(dest, "-", ft_strlen(dest)) == 0)
 		dest = getlsp(list);

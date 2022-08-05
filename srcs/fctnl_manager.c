@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 11:32:21 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/04 12:00:54 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/05 10:44:36 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,30 +61,37 @@ int	check_redir(t_arg *arg)
 	return (0);
 }
 
+int	return_free(int rtn, char *str)
+{
+	if (str)
+		free(str);
+	return (rtn);
+}
+
 int	fctnl_manager(t_llist *list)
 {
+	char	*cmd;
+
+	cmd = ft_strdup(list->first_cmd->cmd);
 	if (count_cmds(list) == 1)
 	{
-		if (strncmp(list->first_cmd->cmd, "echo", 4) == 0)
-			return (ft_echo(list->first_cmd));
-		if (strncmp(list->first_cmd->cmd, "cd", 2) == 0)
-			return (ft_cd(list));
-		if (strncmp(list->first_cmd->cmd, "pwd", 3) == 0)
-			return (ft_pwd(list));
-		if (strncmp(list->first_cmd->cmd, "export", 6) == 0)
-			return (ft_fullexport(&list));
-		if (strncmp(list->first_cmd->cmd, "unset", 5) == 0)
-			return (ft_unset(list));
-		if (strncmp(list->first_cmd->cmd, "env", 3) == 0)
-			return (ft_penv(list));
-		if (strncmp(list->first_cmd->cmd, "exit", 4) == 0)
-			return (ft_exit(list));
+		if (strncmp(list->first_cmd->cmd, "echo", ft_strlen(cmd)) == 0)
+			return (return_free(ft_echo(list->first_cmd), cmd));
+		if (strncmp(list->first_cmd->cmd, "cd", ft_strlen(cmd)) == 0)
+			return (return_free(ft_cd(list), cmd));
+		if (strncmp(list->first_cmd->cmd, "pwd", ft_strlen(cmd)) == 0)
+			return (return_free(ft_pwd(list), cmd));
+		if (strncmp(list->first_cmd->cmd, "export", ft_strlen(cmd)) == 0)
+			return (return_free(ft_fullexport(&list), cmd));
+		if (strncmp(list->first_cmd->cmd, "unset", ft_strlen(cmd)) == 0)
+			return (return_free(ft_unset(list), cmd));
+		if (strncmp(list->first_cmd->cmd, "env", ft_strlen(cmd)) == 0)
+			return (return_free(ft_penv(list), cmd));
+		if (strncmp(list->first_cmd->cmd, "exit", ft_strlen(cmd)) == 0)
+			return (return_free(ft_exit(list), cmd));
 		else
-			return (ft_exec_others(list));
+			return (return_free(ft_exec_others(list), cmd));
 	}
-	else
-	{
-		return (main_pip(list));
-	}
-	
+	return_free(0, cmd);
+	return (main_pip(list));
 }

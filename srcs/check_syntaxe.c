@@ -6,7 +6,7 @@
 /*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 10:41:06 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/27 15:43:04 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/08/05 10:06:01 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	check_red(char *line_read, int i, char c)
 		return (-3);
 	while (line_read[i] == ' ')
 		i++;
-	if (!line_read[i])
+	if (!line_read[i] || line_read[i] == '<' || line_read[i] == '>')
 		return (-3);
 	else if (line_read[i] == '|' && y == 1)
 		return (-3);

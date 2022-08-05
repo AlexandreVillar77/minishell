@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 11:11:09 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/03 14:58:26 by avillar          ###   ########.fr       */
+/*   Updated: 2022/06/27 11:14:40 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,10 @@ int	echo_noarg(t_cmd *cmd)
 
 int	ft_echo(t_cmd *cmd)
 {
+	int		fd;
 	int		n;
 	t_arg	*arg;
 	t_arg	*filename;
-	int		fd;
 
 	fd = 0;
 	n = 0;

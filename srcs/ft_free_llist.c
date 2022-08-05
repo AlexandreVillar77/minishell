@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 12:31:46 by thbierne          #+#    #+#             */
-/*   Updated: 2022/08/01 13:45:12 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/05 10:08:03 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ t_llist	*free_llist_tab(t_llist *list, int i)
 
 t_llist	*free_llist_cmd(t_llist *list)
 {
+	if (!list)
+		return (NULL);
 	while (list->first_cmd)
 	{
 		while (list->first_cmd->next_arg)
