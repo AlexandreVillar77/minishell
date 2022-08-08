@@ -6,36 +6,37 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 10:24:43 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/02 11:06:37 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/08 11:23:20 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	del_env(t_env **env, t_llist *list, int m)
+t_llist	*del_env(t_llist *list, int m)
 {
 	t_env	*tmp;
 
-	tmp = *env;
-	if (!env)
-		return ;
-	if ((*env)->next_env)
-		*env = (*env)->next_env;
-	if (ft_strncmp((*env)->name, "OLDPWD=", 7) == 0 && m == 0)
+	if (!list->first_env)
+		return (list);
+	tmp = list->first_env;
+	if (tmp->next_env)
+		list->first_env = list->first_env->next_env;
+	if (ft_strncmp(list->first_env->name, "OLDPWD=", 7) == 0 && m == 0)
 		list->lastpos = NULL;
-	if (ft_strncmp((*env)->name, "PWD=", 4) == 0)
-		del_OLDPWD(env, list);
+	if (ft_strncmp(list->first_env->name, "PATH=", ft_strlen(list->first_env->name)) == 0)
+		list = free_llist_tab(list, 0);
 	free(tmp);
+	return (list);
 }
 
-void	delete_lenv(t_env **env, int x, t_llist *list, int m)
+t_llist	*delete_lenv(int x, t_llist *list, int m)
 {
 	t_env	*tmp;
 	t_env	*todel;
 
-	if (!env)
-		return ;
-	tmp = *env;
+	if (!list->first_env)
+		return (list);
+	tmp = list->first_env;
 	while (x > 1)
 	{
 		tmp = tmp->next_env;
@@ -45,12 +46,13 @@ void	delete_lenv(t_env **env, int x, t_llist *list, int m)
 	tmp->next_env = todel->next_env;
 	if (ft_strncmp(todel->name, "OLDPWD=", 7) == 0 && m == 0)
 		list->lastpos = NULL;
-	if (ft_strncmp(todel->name, "PWD=", 4) == 0)
-		del_OLDPWD(env, list);
+	if (ft_strncmp(todel->name, "PATH=", ft_strlen(todel->name)) == 0)
+		list= free_llist_tab(list, 0);
 	free(todel);
+	return (list);
 }
 
-void	del_OLDPWD(t_env **env, t_llist *list)
+/*void	del_OLDPWD(t_env **env, t_llist *list)
 {
 	t_env	*tmp;
 	int		x;
@@ -68,7 +70,7 @@ void	del_OLDPWD(t_env **env, t_llist *list)
 		del_env(env, list, 1);
 	else
 		delete_lenv(env, x, list, 1);
-}
+}*/
 
 int		ft_unset(t_llist *list)
 {
@@ -83,14 +85,14 @@ int		ft_unset(t_llist *list)
 	{
 		x = 0;
 		tmp = list->first_env;
-		while (tmp->next_env)
+		while (tmp)
 		{
-			if (ft_strncmp(arg->arg, tmp->name, ft_strlen(arg->arg)) == 0)
+			if (ft_strncmp(tmp->name, arg->arg, ft_strlen(tmp->name) - 1) == 0)
 			{
 				if (x == 0)
-					del_env(&list->first_env, list, 0);
+					list = del_env(list, 0);
 				else
-					delete_lenv(&list->first_env, x, list, 0);
+					list = delete_lenv(x, list, 0);
 				break ;
 			}
 			x++;

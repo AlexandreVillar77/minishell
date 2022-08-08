@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:51:57 by thbierne          #+#    #+#             */
-/*   Updated: 2022/08/05 09:48:46 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/08/05 13:09:15 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ t_llist	*found_cat(t_cmd *cpy_cmd, t_llist *list)
 	if (ft_strncmp(cpy_cmd->cmd, "/usr/bin/cat", 12) == 0)
 	{
 		if (!cpy_cmd->next_arg)
-			cpy_cmd->next_arg = add_first_t_arg(".tmp", -6);
+			cpy_cmd->next_arg = add_first_t_arg(".tmp", 0);
 	}
 	return (list);
 }

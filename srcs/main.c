@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:22:02 by thbierne          #+#    #+#             */
-/*   Updated: 2022/08/05 10:29:36 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/08 11:21:06 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	main(int argc, char **argv, char **envp)
 					if (list->first_cmd)
 					{
 						list = del_redirection(list);
-						//print_t_cmd(list->first_cmd);
+						print_t_cmd(list->first_cmd);
 						fctnl_manager(list);
 						//break;
 					}

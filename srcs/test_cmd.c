@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 13:41:37 by thbierne          #+#    #+#             */
-/*   Updated: 2022/07/11 10:20:57 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/08/08 11:24:17 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	*test_cmd(t_llist *list, char *read)
 
 	i = 0;
 	z = -1;
-	while (list->path[i] && list->path[i][0])
+	while (list->path && list->path[i])
 	{
 		join = ft_strjoin(list->path[i], read);
 		z = access(join, X_OK);
@@ -118,11 +118,6 @@ char	*test_cmd(t_llist *list, char *read)
 		free(join);
 		i++;
 	}
-	/*if (access(read, X_OK) != 0)
-	{
-		write(2, read, ft_strlen(read));
-		write(2, ": command not found\n", 20);
-	}*/
 	free(read);
 	return (NULL);
 }

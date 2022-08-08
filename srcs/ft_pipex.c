@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:17:23 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/05 09:39:12 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/08 12:00:23 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,16 @@ t_cmd	*get_t_cmd(t_llist *list, t_pipe *pip)
 	return (tmp);
 }
 
+void	ft_cmdnotf(char *str, char *name)
+{
+	char	*f;
+
+	f = ft_strjoin(str, name);
+	f = ft_strjoin(f, "\n");
+	write(STDERR_FILENO, f, ft_strlen(f));
+	free(f);
+}
+
 int		exec_bypath(t_llist *list, t_pipe *pip, char **arg_tab)
 {
 	t_cmd	*cmd;
@@ -47,7 +57,7 @@ int		exec_bypath(t_llist *list, t_pipe *pip, char **arg_tab)
 
 	i = -1;
 	cmd = list->first_cmd;//get_t_cmd(list, pip);
-	while (list->path[++i][0] && list->path != NULL)
+	while (list->path != NULL && list->path[++i][0])
 	{
 		pip->cmd = ft_strjoin(list->path[i], get_cmd_name(cmd->cmd));
 		if (!pip->cmd)
@@ -56,7 +66,7 @@ int		exec_bypath(t_llist *list, t_pipe *pip, char **arg_tab)
 			execve(pip->cmd, arg_tab, list->env);
 		free(pip->cmd);
 	}
-	printf("command not found: %s\n", list->first_cmd->cmd);
+	ft_cmdnotf("command not found: ", list->first_cmd->cmd);
 	free (arg_tab);
 	exit (EXIT_FAILURE);
 }
@@ -131,10 +141,11 @@ void	childpro1_bonus(t_llist *list, t_pipe *pip, char **arg_tab)
 	ft_closing_end(pip);
 	if (our_built(list, pip) == 0)
 		exit (EXIT_SUCCESS);
-	if (access(pip->cmd, X_OK) == 0)
-		execve(pip->cmd, arg_tab, list->env);
-	else
-		exec_bypath(list, pip, arg_tab);
+	if (!list->path && (ft_strncmp(list->first_cmd->cmd, "./", 2) == 0 ||
+		ft_strncmp(list->first_cmd->cmd, "/", 1) == 0))
+		if (access(list->first_cmd->cmd, X_OK) == 0)
+			execve(list->first_cmd->cmd, arg_tab, list->env);
+	exec_bypath(list, pip, arg_tab);
 }
 
 void	childpro2_bonus(t_llist *list, t_pipe *pip, char **arg_tab, int j)
@@ -151,10 +162,11 @@ void	childpro2_bonus(t_llist *list, t_pipe *pip, char **arg_tab, int j)
 	ft_closing_end(pip);
 	if (our_built(list, pip) == 0)
 		exit (EXIT_SUCCESS);
-	if (access(pip->cmd, X_OK) == 0)
-		execve(pip->cmd, arg_tab, list->env);
-	else
-		exec_bypath(list, pip, arg_tab);
+	if (!list->path && (ft_strncmp(list->first_cmd->cmd, "./", 2) == 0 ||
+		ft_strncmp(list->first_cmd->cmd, "/", 1) == 0))
+		if (access(list->first_cmd->cmd, X_OK) == 0)
+			execve(list->first_cmd->cmd, arg_tab, list->env);
+	exec_bypath(list, pip, arg_tab);
 }
 
 void    childpro_bonus(t_llist *list, t_pipe *pip, char **arg_tab, int j)
@@ -170,10 +182,11 @@ void    childpro_bonus(t_llist *list, t_pipe *pip, char **arg_tab, int j)
 	ft_closing_end(pip);
 	if (our_built(list, pip) == 0)
 		exit (EXIT_SUCCESS);
-    else if (access(pip->cmd, X_OK) == 0)
-        execve(pip->cmd, arg_tab, list->env);
-    else
-		exec_bypath(list, pip, arg_tab);
+    if (!list->path && (ft_strncmp(list->first_cmd->cmd, "./", 2) == 0 ||
+		ft_strncmp(list->first_cmd->cmd, "/", 1) == 0))
+		if (access(list->first_cmd->cmd, X_OK) == 0)
+        	execve(list->first_cmd->cmd, arg_tab, list->env);
+	exec_bypath(list, pip, arg_tab);
 }
 
 void	child_manager(t_llist *list, int j, t_pipe *pip, char **arg_tab)

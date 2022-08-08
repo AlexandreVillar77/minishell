@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 13:26:31 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/05 09:28:47 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/08 11:57:26 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	**make_arg_tab(t_arg *arg, char *cmd)
 	rtn[0] = ft_cpy(cmd);
 	while (i - 1 < get_nbarg(arg) && tmp->arg)
 	{
-		if (tmp->nbr > -1)
+		if (tmp->nbr > -1 || tmp-> nbr == -3)
 		{
 			rtn[x] = ft_cpy(tmp->arg);
 			x++;
@@ -132,26 +132,24 @@ void		process01(t_llist *list, int fd, char *cmd, t_arg *tmp_arg)
 	char	**arg_tab;
 	int		i;
 
-	i = 0;
+	i = -1;
 	arg_tab = make_arg_tab(tmp_arg, cmd);
 	if (fd != 0)
 		if (dup2(fd, STDOUT_FILENO) < 0)
 			exit (EXIT_FAILURE);
 	if (fd != 0)
 		close (fd);
-	if (access(cmd, X_OK) == 0)
-		execve(cmd, arg_tab, list->env);
-	else
+	if (!list->path || ft_strncmp(list->first_cmd->cmd, "./", 2) == 0 || ft_strncmp(list->first_cmd->cmd, "/", 1) == 0)
+		if (access(list->first_cmd->cmd, X_OK) == 0)
+			execve(list->first_cmd->cmd, arg_tab, list->env);
+	while (list->path != NULL && list->path[++i][0])
 	{
-		while (list->path[++i][0] && list->path != NULL)
-		{
-			cmd = ft_strjoin(list->path[i], get_cmd_name(list->first_cmd->cmd));
-			if (!cmd)
-				break ;
-			if (access(cmd, X_OK) == 0)
-				execve(cmd, arg_tab, list->env);
-			free(cmd);
-		}
+		cmd = ft_strjoin(list->path[i], get_cmd_name(list->first_cmd->cmd));
+		if (!cmd)
+			break ;
+		if (access(cmd, X_OK) == 0)
+			execve(cmd, arg_tab, list->env);
+		free(cmd);
 	}
 	printf("command not found: %s\n", list->first_cmd->cmd);
 	free (arg_tab);
@@ -172,7 +170,7 @@ int	ft_exec_others(t_llist *list)
 	child = fork();
 	if (child < 0)
 		exit (EXIT_FAILURE);
-	else if (child == 0)
+	if (child == 0)
 		process01(list, fd, get_cmd_name(list->first_cmd->cmd), tmp);
 	if (fd != 0)
 		close (fd);
