@@ -1,6 +1,3 @@
-1 = 
-
-exit + int return int;
 
 
 facultatif (peut etre) =
@@ -11,58 +8,15 @@ verifier les permission des fichier creer via les redirections
 
 tester les fuites memoires pour et fd open a cause des signaux
 
-11= 
-
-gerer syntaxe: echo test > > che
-
-12=
-
-heredoc: verifier apres cat si heredoc et verifier que cat existe avec access()
 
 13= 
 
 si << heredoc + args lancer mais ignore heredoc
 
-14 =
-
-wtf minishell:" " = segfqult
-
-15=
+15= 
 
 echo $?
 
-16=
+16= 
 
-unset PATH  videe le tab
-
-17= 
-
-ne pas alncer minishell si juste ecrit minishell sauf si le path est unset
-
-18 = 
-
-export ecrit tout le temps erreur mais cree la variable
-
-19 =
-
-profondeur incrementer SHLVL
-+ changer shell en minishell
-
-20 = 
-
-si env -i mettre en dure PATH mais pas l'afficher dans env
-
-21 = 
-
-export tout court afficher export env sur chaque ligne
-
-22 = 
-
-export vriable non initialiser dans la liste de export tout court ;ais pas dans env
-
-23 = 
-
-verif unset
-
-24 = 
-
+recheck le parsing de export + export sur une variable non initialise = update de celle-ci
