@@ -6,85 +6,25 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 13:26:31 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/08 11:57:26 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/17 12:24:34 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	get_fd(t_arg *arg)
+char	**make_arg_tab(t_arg *arg, char *cmd, int i, int x)
 {
 	t_arg	*tmp;
-	int		fd;
+	char	**rtn;
 
 	tmp = arg;
-	while (tmp->next_arg)
-	{
-		if (tmp->nbr == -1)
-		{
-			fd = open(get_fd_name(arg), O_RDWR | O_TRUNC);
-			return (fd);
-		}
-		else if (tmp->nbr == -2)
-		{
-			fd = open(get_fd_name(arg), O_RDWR | O_APPEND);
-			return (fd);
-		}
-		tmp = tmp->next_arg;
-	}
-	return (0);
-}
-
-int		get_nbarg(t_arg *arg)
-{
-	t_arg	*tmp;
-	int		rtn;
-
-	rtn = 0;
-	tmp = arg;
-	while (tmp)
-	{
-		rtn++;
-		tmp = tmp->next_arg;
-	}
-	return (rtn);
-}
-
-char	*ft_cpy(char *src)
-{
-	int		i;
-	char	*rtn;
-
-	i = 0;
-	rtn = malloc(sizeof(char) * (ft_strlen(src) + 1));
-	if (!rtn)
-		exit(EXIT_FAILURE);
-	while (src[i])
-	{
-		rtn[i] = src[i];
-		i++;
-	}
-	rtn[i] = '\0';
-	return (rtn);
-}
-
-char	**make_arg_tab(t_arg *arg, char *cmd)
-{
-	t_arg	*tmp;
-	int		i;
-	int		x;
-	char 	**rtn;
-
-	i = 1;
-	x = 1;
-	tmp = arg;
-	rtn = malloc(sizeof(char*) * (get_nbarg(arg) + 2));
+	rtn = malloc(sizeof(char *) * (get_nbarg(arg) + 2));
 	if (!rtn)
 		exit (EXIT_FAILURE);
 	rtn[0] = ft_cpy(cmd);
 	while (i - 1 < get_nbarg(arg) && tmp->arg)
 	{
-		if (tmp->nbr > -1 || tmp-> nbr == -3)
+		if (tmp->nbr > -1 || tmp->nbr == -3)
 		{
 			rtn[x] = ft_cpy(tmp->arg);
 			x++;
@@ -127,33 +67,22 @@ char	*get_cmd_name(char *str)
 	return (rtn);
 }
 
-void		process01(t_llist *list, int fd, char *cmd, t_arg *tmp_arg)
+void	process01(t_llist *list, int fd, char *cmd, t_arg *tmp_arg)
 {
 	char	**arg_tab;
-	int		i;
 
-	i = -1;
-	arg_tab = make_arg_tab(tmp_arg, cmd);
+	arg_tab = make_arg_tab(tmp_arg, cmd, 1, 1);
 	if (fd != 0)
 		if (dup2(fd, STDOUT_FILENO) < 0)
 			exit (EXIT_FAILURE);
 	if (fd != 0)
 		close (fd);
-	if (!list->path || ft_strncmp(list->first_cmd->cmd, "./", 2) == 0 || ft_strncmp(list->first_cmd->cmd, "/", 1) == 0)
+	if (!list->path || ft_strncmp(list->first_cmd->cmd, "./", 2) == 0
+		|| ft_strncmp(list->first_cmd->cmd, "/", 1) == 0)
 		if (access(list->first_cmd->cmd, X_OK) == 0)
 			execve(list->first_cmd->cmd, arg_tab, list->env);
-	while (list->path != NULL && list->path[++i][0])
-	{
-		cmd = ft_strjoin(list->path[i], get_cmd_name(list->first_cmd->cmd));
-		if (!cmd)
-			break ;
-		if (access(cmd, X_OK) == 0)
-			execve(cmd, arg_tab, list->env);
-		free(cmd);
-	}
-	printf("command not found: %s\n", list->first_cmd->cmd);
+	exec_path_p1(list, arg_tab, cmd);
 	free (arg_tab);
-	exit (EXIT_FAILURE);
 }
 
 int	ft_exec_others(t_llist *list)
@@ -162,6 +91,7 @@ int	ft_exec_others(t_llist *list)
 	int		status;
 	pid_t	child;
 	t_arg	*tmp;
+	char	*cmd;
 
 	tmp = list->first_cmd->next_arg;
 	fd = 0;
@@ -171,7 +101,11 @@ int	ft_exec_others(t_llist *list)
 	if (child < 0)
 		exit (EXIT_FAILURE);
 	if (child == 0)
-		process01(list, fd, get_cmd_name(list->first_cmd->cmd), tmp);
+	{
+		cmd = get_cmd_name(list->first_cmd->cmd);
+		process01(list, fd, cmd, tmp);
+		free (cmd);
+	}
 	if (fd != 0)
 		close (fd);
 	waitpid(child, &status, 0);

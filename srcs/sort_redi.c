@@ -6,7 +6,7 @@
 /*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 14:23:43 by thbierne          #+#    #+#             */
-/*   Updated: 2022/07/27 16:03:22 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/08/11 08:57:01 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_llist	*sort_redi(t_llist *list)
 	cmd_cpy = list->first_cmd;
 	while (cmd_cpy)
 	{
-		if (cmd_cpy->nbr == -1 || cmd_cpy->nbr == -2)
+		if (cmd_cpy->nbr == -1 || cmd_cpy->nbr == -2 || cmd_cpy->nbr == -3)
 			list = sort_llist_redi(list, cmd_cpy);
 		arg_cpy = cmd_cpy->next_arg;
 		while (arg_cpy)

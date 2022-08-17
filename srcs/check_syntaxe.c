@@ -6,7 +6,7 @@
 /*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 10:41:06 by thbierne          #+#    #+#             */
-/*   Updated: 2022/08/05 10:06:01 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/08/08 10:34:18 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ int	check_pipe_dir(char *line_read)
 int	check_syntaxe(char *line_read)
 {
 	int	check;
+	int	i;
 
 	check = check_pipe_dir(line_read);
 	if (check == -1)
@@ -124,6 +125,11 @@ int	check_syntaxe(char *line_read)
 		printf("wrond token near '<' or '>'\n");
 	else if (check == -4)
 		printf("wrong token near '|'\n");
+	i = 0;
+	while (line_read[i] == ' ')
+		i++;
+	if (!line_read[i])
+		return (-1);
 	if (check < 0)
 		return (-1);
 	return (1);

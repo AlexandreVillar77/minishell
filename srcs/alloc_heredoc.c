@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:51:57 by thbierne          #+#    #+#             */
-/*   Updated: 2022/08/05 13:09:15 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/05 13:20:51 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,16 @@ int		count_heredoc(t_cmd *cmd)
 	x = 0;
 	tmp = cmd;
 	if (tmp->nbr == -4)
-		x++;
+		x = 2;
 	cpy = cmd->next_arg;
 	while (cpy)
 	{
 		if (cpy->nbr == -4)
+		{
+			if (x == 0)
+				x++;
 			x++;
+		}
 		cpy = cpy->next_arg;
 	}
 	return (x);
@@ -93,7 +97,7 @@ t_llist	*del_heredoc(t_llist *list)
 		{
 			if (cmd_cpy->next_arg && cmd_cpy->next_arg->nbr == -4)
 			{
-				while (cmd_cpy->next_arg && cmd_cpy->next_arg->nbr == -4 && i > 0)
+				while (cmd_cpy->next_arg && cmd_cpy->next_arg->nbr == -4 && i > 1)
 				{
 					cmd_cpy = larg_del_f(cmd_cpy);
 					cmd_cpy = larg_del_f(cmd_cpy);
@@ -105,7 +109,7 @@ t_llist	*del_heredoc(t_llist *list)
 				arg_cpy = cmd_cpy->next_arg;
 				while (arg_cpy->next_arg && i > 0)
 				{
-					if (arg_cpy->next_arg->nbr == -4 && i > 0)
+					if (arg_cpy->next_arg->nbr == -4 && i > 1)
 					{
 						arg_cpy = larg_del_n(arg_cpy);
 						arg_cpy = larg_del_n(arg_cpy);
@@ -116,18 +120,15 @@ t_llist	*del_heredoc(t_llist *list)
 				}
 			}
 		}
-		list = found_cat(cmd_cpy, list);
+		list = found_cat(cmd_cpy, list, i);
 		cmd_cpy = cmd_cpy->next_cmd;
 	}
 	return (list);
 }
 
-t_llist	*found_cat(t_cmd *cpy_cmd, t_llist *list)
+t_llist	*found_cat(t_cmd *cpy_cmd, t_llist *list, int count)
 {
-	if (ft_strncmp(cpy_cmd->cmd, "/usr/bin/cat", 12) == 0)
-	{
-		if (!cpy_cmd->next_arg)
+	if (!cpy_cmd->next_arg && count == 1)
 			cpy_cmd->next_arg = add_first_t_arg(".tmp", 0);
-	}
 	return (list);
 }

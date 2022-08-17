@@ -6,7 +6,7 @@
 #    By: avillar <avillar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 13:12:34 by thbierne          #+#    #+#              #
-#    Updated: 2022/08/05 10:23:49 by avillar          ###   ########.fr        #
+#    Updated: 2022/08/17 11:38:23 by avillar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,19 @@ SRCS =	srcs/alloc_arg.c			\
 		srcs/rl_get.c				\
 		srcs/ft_pipex.c				\
 		srcs/alloc_heredoc.c		\
+		srcs/del_arg.c				\
+		srcs/export_h.c				\
+		srcs/delete_empty_redi.c	\
+		srcs/chdir_utils.c			\
+		srcs/echo_utils.c			\
+		srcs/export_h_utils.c		\
+		srcs/export_utils2.c		\
+		srcs/ft_exec_others_util.c	\
+		srcs/child_manager.c		\
+		srcs/ft_pipex_utils.c		\
+		srcs/pip_utils.c			\
+		srcs/pwd_utils.c			\
+		srcs/unset_utils.c			\
 
 OBJS = $(SRCS:.c=.o)
 

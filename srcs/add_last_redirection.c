@@ -6,80 +6,11 @@
 /*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 09:05:29 by thbierne          #+#    #+#             */
-/*   Updated: 2022/07/11 11:39:37 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/08/12 13:21:32 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-t_cmd	*delete_first_t_cmd_for_arg(t_cmd *list)
-{
-	t_cmd	*cp;
-
-	if (list != NULL)
-	{
-		cp = (t_cmd *)malloc(sizeof(t_cmd));
-		if (list->next_arg)
-		{
-			cp->cmd = ft_strdup(list->next_arg->arg);
-			cp->next_cmd = list->next_cmd;
-			cp->nbr = list->next_arg->nbr;
-			cp->nbr--;
-			cp->next_arg = list->next_arg->next_arg;
-		}
-		else
-		{
-			cp->cmd = NULL;
-			cp->next_cmd = list->next_cmd;
-			cp->nbr = 0;
-			cp->next_arg = NULL;
-		}
-		free(list->cmd);
-		free(list);
-		return (cp);
-	}
-	return (NULL);
-}
-
-t_llist	*delete_if_redi_cmd(t_llist *list)
-{
-	t_cmd	*cmd_cpy;
-	t_cmd	*ll_cmd;
-
-	cmd_cpy = list->first_cmd;
-	ll_cmd = NULL;
-	while (cmd_cpy != NULL)
-	{
-		if ((cmd_cpy->nbr == -1 || cmd_cpy->nbr == -2) && cmd_cpy != NULL)
-		{
-			while ((cmd_cpy->nbr == -1 || cmd_cpy->nbr == -2) && cmd_cpy != NULL)
-			{
-				cmd_cpy = delete_first_t_cmd_for_arg(cmd_cpy);
-				cmd_cpy = delete_first_t_cmd_for_arg(cmd_cpy);
-			}
-		}
-		if (cmd_cpy->cmd == NULL)
-		{
-			if (!ll_cmd)
-			{
-				list->first_cmd = cmd_cpy->next_cmd;
-				free(cmd_cpy);
-			}
-			else
-			{
-				ll_cmd->next_cmd = cmd_cpy->next_cmd;
-				free(cmd_cpy);
-				cmd_cpy = ll_cmd->next_cmd;
-			}
-		}
-		else
-		{
-			ll_cmd = cmd_cpy;
-			cmd_cpy = cmd_cpy->next_cmd;
-		}
-	}
-	return (list);
-}
 
 int	count_redi(t_cmd *cmd, int count)
 {
@@ -137,6 +68,5 @@ t_llist	*check_and_add_last_redi(t_llist *list)
 		}
 		cmd_cpy = cmd_cpy->next_cmd;
 	}
-	list = delete_if_redi_cmd(list);
 	return (list);
 }

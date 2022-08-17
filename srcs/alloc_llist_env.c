@@ -6,15 +6,15 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:51:12 by thbierne          #+#    #+#             */
-/*   Updated: 2022/08/01 13:41:57 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/17 11:37:58 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		ft_strchr2(char *str, char c)
+int	ft_strchr2(char *str, char c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -107,6 +107,7 @@ t_env	*alloc_t_env(char **envp, t_env *list)
 		list = add_t_env(list, envp[y]);
 		y++;
 	}
+	list = change_shell_lev(list);
 	return (list);
 }
 

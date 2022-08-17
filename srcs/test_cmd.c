@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 13:41:37 by thbierne          #+#    #+#             */
-/*   Updated: 2022/08/08 11:24:17 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/08 16:11:33 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ char	**split_path_into_tab(char **split, char *str, int i, int count)
 		count++;
 		if (!str[i])
 		{
-			split[count] = (char *)malloc(sizeof(char) * 1);
-			split[count][0] = '\0';
+			split[count] = NULL;
 			return (split);
 		}
 		i++;
@@ -84,16 +83,25 @@ t_llist	*alloc_path(t_llist *list)
 		free(list->path);
 	tmp = list->first_env;
 	str = ft_strdup("PATH=");
-	while (tmp->next_env)
+	while (tmp)
 	{
 		i = 0;
 		while (str[i] == tmp->name[i] && str[i])
 			i++;
 		if (!str[i])
+		{
 			break ;
+		}
 		tmp = tmp->next_env;
 	}
 	free (str);
+	if (!tmp)
+	{
+		str = ft_strdup("/mnt/nfs/homes/thbierne/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin");
+		list = split_path(str, ':', list);
+		free (str);
+		return (list);
+	}
 	list = split_path(tmp->var, ':', list);
 	return (list);
 }

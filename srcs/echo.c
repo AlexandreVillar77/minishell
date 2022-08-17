@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 11:11:09 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/27 11:14:40 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/17 10:11:11 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,58 +76,7 @@ int	print_echo_fd(t_arg *arg, char *filename, int n, int red)
 void	echo_manage(t_arg *arg, char *filename, int n, int fd)
 {
 	if (fd < 0)
-		print_echo_fd(arg,	filename, n, fd);
-	else 
+		print_echo_fd(arg, filename, n, fd);
+	else
 		print_echo0(arg, n);
-}
-
-int	echo_noarg(t_cmd *cmd)
-{
-	if (!cmd->next_arg)
-	{
-		write(1, "\n", 1);
-		return (0);
-	}
-	else if (cmd->next_arg)
-	{
-		if (cmd->next_arg->arg)
-		{
-			if (ft_strncmp(cmd->next_arg->arg, "-n", 2) == 0)
-			{
-				return (0);
-			}
-		}		
-	}
-	return (1);
-}
-
-int	ft_echo(t_cmd *cmd)
-{
-	int		fd;
-	int		n;
-	t_arg	*arg;
-	t_arg	*filename;
-
-	fd = 0;
-	n = 0;
-	if (!cmd->next_arg || !cmd->next_arg->next_arg)
-		if (echo_noarg(cmd) == 0)
-			return (0);
-	arg = cmd->next_arg;
-	if (ft_strncmp(arg->arg, "-n", 2) == 0)
-	{
-		arg = arg->next_arg;
-		n = 1;
-	}
-	fd = check_redir(arg);
-	filename = arg;
-	if (fd < 0)
-	{
-		while (filename->nbr > 0 && filename->next_arg)
-			filename = filename->next_arg;
-		if (filename->next_arg)
-			filename = filename->next_arg;
-	}
-	echo_manage(arg, filename->arg, n, fd);
-	return (0);
 }

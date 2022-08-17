@@ -6,32 +6,11 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:10:25 by avillar           #+#    #+#             */
-/*   Updated: 2022/06/27 15:58:34 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/17 10:18:04 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-char	*recup_name(t_arg *arg)
-{
-	int		size;
-	char	*rtn;
-
-	size = 0;
-	while (arg->arg[size] && arg->arg[size] != '=')
-		size++;
-	rtn = malloc(sizeof(char) * (size + 1));
-	if (!rtn)
-		exit (EXIT_FAILURE);
-	size = 0;
-	while (arg->arg[size] && arg->arg[size] != '=' && arg->arg[size] != '+')
-	{
-		rtn[size] = arg->arg[size];
-		size++;
-	}
-	rtn[size] = '\0';
-	return (rtn);
-}
 
 int	len_ofarg(t_arg *arg)
 {
@@ -77,45 +56,25 @@ char	*get_var(t_arg *arg)
 	return (rtn);
 }
 
-char	*delete_equal(t_arg *arg)
+char	*upd_var(t_env *tmpenv, t_arg *tmp)
 {
-	int		i;
 	char	*rtn;
-	int		x;
+	char	*tmpc;
 
-	i = 0;
-	x = 0;
-	rtn = malloc(sizeof(char) * (ft_strlen(arg->arg) - 1));
-	if (!rtn)
-		exit (EXIT_FAILURE);
-	while (arg->arg[i] && arg->arg[i] != '=' && arg->arg[i] != '+')
-	{
-		rtn[x] = arg->arg[i];
-		i++;
-		x++;
-	}
-	if (i == '+')
-		i++;
-	i++;
-	while (arg->arg[i])
-	{
-		rtn[x] = arg->arg[i];
-		i++;
-		x++;
-	}
-	rtn[x] = '\0';
+	tmpc = get_var(tmp);
+	rtn = ft_strjoin(tmpenv->var, tmpc);
+	free(tmpc);
 	return (rtn);
 }
 
-int	ft_export(t_llist **list, t_arg **arg)
+int	ft_export(t_llist **list, t_arg **arg, char *name)
 {
-	char	*name;
 	t_env	*tmpenv;
 	t_arg	*tmp;
+	char	*j;
 
 	tmp = *arg;
 	tmpenv = (*list)->first_env;
-	name = recup_name(tmp);
 	while (tmpenv->next_env
 		&& ft_strncmp(name, tmpenv->name, ft_strlen(name)) != 0)
 		tmpenv = tmpenv->next_env;
@@ -126,7 +85,12 @@ int	ft_export(t_llist **list, t_arg **arg)
 		if (export_checker(tmp) == 1)
 			tmpenv = add_var(tmpenv, tmp->arg, ft_strchr2(tmp->arg, '='));
 		else if (export_checker(tmp) == 2)
-			tmpenv->var = ft_strjoin(tmpenv->var, get_var(tmp));
+		{
+			j = upd_var(tmpenv, tmp);
+			free (tmpenv->var);
+			tmpenv->var = ft_strdup(j);
+			free (j);
+		}
 	}
 	return (0);
 }

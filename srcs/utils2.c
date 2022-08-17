@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 15:00:08 by thbierne          #+#    #+#             */
-/*   Updated: 2022/07/27 16:48:48 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/08/17 11:37:29 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,12 @@ void	print_t_cmd(t_cmd *list)
 		{
 			printf("arg:%i=%s ", cpy->nbr, cpy->arg);
 			if (cpy->next_arg == NULL)
-				break;
+				break ;
 			cpy = cpy->next_arg;
 		}
 		printf("\n");
 		if (tmp->next_cmd == NULL)
-			break;
+			break ;
 		tmp = tmp->next_cmd;
 	}
 }

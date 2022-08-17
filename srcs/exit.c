@@ -6,51 +6,56 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 11:51:38 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/05 10:29:18 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/17 10:16:48 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	if_tmpdelete(t_llist *list)
+int	numcheck(char *str)
 {
-	int		fd;
-	char	**str;
-	int		i;
-	//char	*cmd;
-	
-	i = -1;
-	write(2, "re\n", 3);
-	str = malloc(sizeof(char *) * 2);
-	if (!str)
-		exit (EXIT_FAILURE);
-	str[0] = ft_strdup("./.tmp");
-	str[1] = NULL;
-	i++;
-	fd = open("./.tmp", O_RDONLY);
-	if (fd < 1)
-		return ;
-	if (access("/usr/bin/rm", X_OK) == 0)
-		execve("/usr/bin/rm", str, list->env);
-	/*else
+	int	i;
+
+	i = 0;
+	while (str[i])
 	{
-		while (list->path[++i][0] && list->path != NULL)
+		if (ft_isdigit(str[i]) == 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	exit_util(t_llist *list, int x)
+{
+	if (numcheck(list->first_cmd->next_arg->arg) == 0)
+	{
+		if (list->first_cmd->next_arg->next_arg)
 		{
-			cmd = ft_strjoin(list->path[i], "rm");
-			if (!cmd)
-			exit (EXIT_FAILURE);
-			if (access(cmd, X_OK) == 0)
-				execve(cmd, str, list->env);
-			free(cmd);
+			printf("exit : too many arguments\n");
+			LOL = 1;
+			return (1);
 		}
-	}*/
-	close (fd);
-	free (str);
+		else
+			x = ft_atoi(list->first_cmd->next_arg->arg);
+	}
+	else
+	{
+		printf("exit : %s", list->first_cmd->next_arg->arg);
+		printf(": numeric argument required\n");
+		x = 2;
+	}
+	return (x);
 }
 
 int	ft_exit(t_llist *list)
 {
+	int	x;
+
+	x = 0;
+	if (list->first_cmd->next_arg)
+		x = exit_util(list, 0);
 	free_llist_cmd(list);
 	free_llist(list, NULL);
-	exit (0);
+	exit (x);
 }

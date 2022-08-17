@@ -6,64 +6,11 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 14:18:06 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/05 10:42:24 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/17 11:28:22 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-char	*get_pwd(t_llist *list)
-{
-	t_env	*tmp;
-
-	tmp = list->first_env;
-	while (tmp)
-	{
-		if (ft_strncmp(tmp->name, "PWD=", ft_strlen(tmp->name)) == 0)
-			return (tmp->var);
-		tmp = tmp->next_env;
-	}
-	return (NULL);
-}
-
-char	*get_afeq(char *str)
-{
-	int		i;
-	int		x;
-	char	*rtn;
-
-	i = 0;
-	x = 0;
-	while (str[i] != '=')
-		i++;
-	i++;
-	rtn = malloc(sizeof(char) * (ft_strlen(str) - i + 1));
-	if (!rtn)
-		exit (1);
-	while (str[i])
-	{
-		rtn[x] = str[i];
-		x++;
-		i++;
-	}
-	rtn[x] = '\0';
-	return (rtn);
-}
-
-char	*get_oldpwd(t_llist *list)
-{
-	t_env	*tmp;
-
-	tmp = list->first_env;
-	while (tmp)
-	{
-		if (ft_strncmp(tmp->name, "OLDPWD=", ft_strlen(tmp->name)) == 0)
-			return (tmp->var);
-		tmp = tmp->next_env;
-	}
-	write(2, "cd: OLDPWD not set\n", 20);
-	return (NULL);
-}
 
 char	*getlsp(t_llist *list)
 {
@@ -79,13 +26,41 @@ char	*getlsp(t_llist *list)
 	}
 }
 
+int	cd_alone(t_llist *list)
+{
+	int		i;
+	t_env	*tmp;
+
+	i = 0;
+	tmp = list->first_env;
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->name, "HOME=", ft_strlen(tmp->name)) == 0)
+		{
+			i = 1;
+			break ;
+		}
+		tmp = tmp->next_env;
+	}
+	if (i == 1)
+	{
+		chdir(tmp->var);
+		free(list->lastpos);
+		list->lastpos = ft_strdup(get_pwd(list));
+		ft_update_pwd(&list);
+	}
+	else
+		write (2, "cd: HOME not set\n", 17);
+	return (i);
+}
+
 int	ft_cd(t_llist *list)
 {
 	char	*dest;
 	char	*tmp;
 
 	if (!list->first_cmd->next_arg)
-		return (0);
+		return (cd_alone(list));
 	dest = list->first_cmd->next_arg->arg;
 	if (ft_strncmp(dest, "-", ft_strlen(dest)) == 0)
 		dest = getlsp(list);
@@ -96,18 +71,12 @@ int	ft_cd(t_llist *list)
 	if (tmp == NULL && ft_strncmp(dest, "..", ft_strlen(dest)) == 0)
 		write(2, "cd: ..: No such file or directory\n", 35);
 	else if (chdir(dest) == -1)
-	{
-		write(2, list->first_cmd->cmd, ft_strlen(list->first_cmd->cmd));
-		write(2, ": ", 2);
-		write(2, dest, ft_strlen(dest));
-		write(2, ": ", 2);
-		perror("");
-		return (-1);
-	}
+		return (rtn_print_errchdir(list, dest, tmp));
 	else
 	{
+		free(list->lastpos);
 		list->lastpos = ft_strdup(get_pwd(list));
-		ft_update_PWD(&list);
+		ft_update_pwd(&list);
 	}
 	if (tmp)
 		free(tmp);

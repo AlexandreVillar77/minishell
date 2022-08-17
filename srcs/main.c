@@ -6,11 +6,13 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:22:02 by thbierne          #+#    #+#             */
-/*   Updated: 2022/08/08 11:21:06 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/17 12:30:10 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	LOL = 0;
 
 t_llist	*alloc_cmd(t_llist *list, char *line_read)
 {
@@ -42,6 +44,7 @@ t_llist	*alloc_cmd(t_llist *list, char *line_read)
 	list = sort_redi(list);
 	list = check_and_add_last_redi(list);
 	list = alloc_heredoc(list, line_read);
+	list = delete_empty_redi(list);
 	return (list);
 }
 
@@ -49,15 +52,18 @@ int	main(int argc, char **argv, char **envp)
 {
 	char		*line_read;
 	t_llist		*list;
+	int			i;
 
 	(void)argc;
-	(void)argv;
+	//(void)argv;
+	i = 1;
 	line_read = NULL;
 	list = init_llist(envp);
-	while (1)
+	while (argv[i])
+	//while (1)
 	{
-		line_read = rl_gets(line_read);
-		//line_read = ft_strdup("echo test");
+		//line_read = rl_gets(line_read);
+		line_read = ft_strdup(argv[i]);
 		if (line_read)
 		{
 			if (check_syntaxe(line_read) == 1)
@@ -74,11 +80,11 @@ int	main(int argc, char **argv, char **envp)
 						list = del_redirection(list);
 						print_t_cmd(list->first_cmd);
 						fctnl_manager(list);
-						//break;
 					}
 				}
-				//if_tmpdelete(list);
 				list = free_llist_cmd(list);
+				i++;
+				//break;
 			}
 		}
 	}

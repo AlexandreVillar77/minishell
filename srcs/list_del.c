@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_del.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 14:55:19 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/02 10:02:12 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/08/17 11:16:22 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	larg_del_first(t_arg **arg)
 
 void	larg_del_next(t_arg **arg)
 {
-	t_arg *tmp;
-	t_arg *todel;
+	t_arg	*tmp;
+	t_arg	*todel;
 
 	if (!arg)
 		return ;
@@ -57,7 +57,7 @@ t_cmd	*larg_del_f(t_cmd *cmd)
 
 t_arg	*larg_del_n(t_arg *arg)
 {
-	t_arg *tmp;
+	t_arg	*tmp;
 
 	if (!arg)
 		return (NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:53:32 by thbierne          #+#    #+#             */
-/*   Updated: 2022/08/02 10:15:33 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/08/12 14:41:24 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,9 +118,6 @@ int		ft_redirection(char *str, char *filename)
 
 int		ft_redirection_appen(char *str, char *filename)
 {
-	char	tmp;
-	char	*join;
-	char	*cpy;
 	int		file;
 
 	if (!filename)
@@ -131,58 +128,10 @@ int		ft_redirection_appen(char *str, char *filename)
 		return (0);
 	}
 	else
-		file = open(filename, O_RDWR);
+		file = open(filename, O_RDWR | O_APPEND);
 	if (file == -1)
 		return (-1);
-	join = NULL;
-	while (read(file, &tmp, 1) > 0)
-		{
-			if (!join)
-			{
-				join = (char *)malloc(sizeof(char) * 2);
-				join[0] = tmp;
-				join[1] = '\0';
-			}
-			else
-				join = join_char(join, tmp);
-		}
-	close(file);
-	file = open(filename,O_RDONLY | O_WRONLY | O_TRUNC);
-	cpy = ft_strjoin(join, "\0");
-	free(join);
-	join = ft_strjoin(cpy, str);
-	free (cpy);
-	write(file, join, len(join));
-	free(join);
+	write(file, str, ft_strlen(str));
 	close(file);
 	return (0);
-}
-
-char	*ft_redirection_out(char *filename)
-{
-	int		file;
-	char	*join;
-	char	tmp;
-
-	if (!filename)
-		return (NULL);
-	if (access(filename, R_OK) != 0)
-		return (NULL);
-	file = open(filename, O_RDWR);
-	if (file == -1)
-		return (NULL);
-	join = NULL;
-	while (read(file, &tmp, 1) > 0)
-		{
-			if (!join)
-			{
-				join = (char *)malloc(sizeof(char) * 2);
-				join[0] = tmp;
-				join[1] = '\0';
-			}
-			else
-				join = join_char(join, tmp);
-		}
-	close(file);
-	return (join);
 }

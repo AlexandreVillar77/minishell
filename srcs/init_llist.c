@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_llist.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 13:41:04 by thbierne          #+#    #+#             */
-/*   Updated: 2022/08/02 10:37:48 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/08 13:37:05 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,30 @@ t_llist	*init_llist(char **envp)
 	list = llist_to_tab_env(list);
 	list->lastpos = get_oldpwd(list);
 	return (list);
+}
+
+t_env	*change_shell_lev(t_env *env)
+{
+	t_env	*cpy;
+	int i;
+
+	i = 0;
+	cpy = env;
+	while (cpy)
+	{
+		if (ft_strncmp(cpy->name, "SHLVL", (len(cpy->name) - 1)) == 0)
+		{
+			i = ft_atoi(cpy->var);
+			i++;
+			free(cpy->var);
+			cpy->var = ft_itoa(i);
+		}
+		else if (ft_strncmp(cpy->name, "SHELL", (len(cpy->name) -1)) == 0)
+		{
+			free(cpy->var);
+			cpy->var = ft_strdup("minishell");
+		}
+		cpy = cpy->next_env;
+	}
+	return (env);
 }

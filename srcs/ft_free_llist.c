@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 12:31:46 by thbierne          #+#    #+#             */
-/*   Updated: 2022/08/08 11:11:42 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/11 13:51:58 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_llist	*free_llist_tab(t_llist *list, int i)
 	if ((i == 0 || i == 2) && (list->path))
 	{
 		y = 0;
-		while (list->path[y][0])
+		while (list->path[y])
 			free(list->path[y++]);
 		free(list->path[y++]);
 		free(list->path);
@@ -73,6 +73,8 @@ void	free_llist(t_llist *list, char *line_read)
 	list = free_llist_exe(list);
 	list = free_llist_env(list);
 	list = free_llist_tab(list, 2);
+	if (list->lastpos)
+		free (list->lastpos);
 	free(list);
 	if (line_read)
 		free(line_read);
