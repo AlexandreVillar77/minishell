@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rl_get.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 11:52:46 by thbierne          #+#    #+#             */
-/*   Updated: 2022/08/01 11:28:18 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/19 10:20:59 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	write_line_read(int fd[2])
 	exit (EXIT_SUCCESS);
 }
 
-char	*read_line()
+char	*read_line(void)
 {
 	pid_t	pid;
 	int		fd[2];
@@ -83,7 +83,7 @@ char	*rl_gets(char *line_read)
 	{
 		printf("exit\n");
 		line_read = ft_strdup("exit");
-		return(line_read);
+		return (line_read);
 	}
 	if (line_read && *line_read)
 		add_history(line_read);

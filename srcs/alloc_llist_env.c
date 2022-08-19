@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_llist_env.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:51:12 by thbierne          #+#    #+#             */
-/*   Updated: 2022/08/17 11:37:58 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/19 10:23:19 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,17 +109,4 @@ t_env	*alloc_t_env(char **envp, t_env *list)
 	}
 	list = change_shell_lev(list);
 	return (list);
-}
-
-t_env	*ft_set_base_env(t_env *envl)
-{
-	char	*str;
-
-	str = NULL;
-	str = getcwd(str, 0);
-	envl = add_t_env(envl, ft_strjoin("PWD=", str));
-	envl = add_t_env(envl, "SHLVL=1");
-	envl = add_t_env(envl, "_=usr/bin/env");
-	free (str);
-	return (envl);
 }

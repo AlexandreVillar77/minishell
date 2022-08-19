@@ -6,42 +6,13 @@
 /*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:53:32 by thbierne          #+#    #+#             */
-/*   Updated: 2022/08/16 11:53:26 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/08/19 11:02:04 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_arg	**del_redir(t_arg *arg)
-{
-	t_arg *tmp;
-	int		i;
-	t_arg	**rtn;
-
-	//i = count_redir(arg);
-	tmp = arg;
-	rtn = &tmp;
-	while (i > 1 && (tmp->nbr == -1 || tmp->nbr == -2))
-	{
-		larg_del_first(&tmp);
-		larg_del_first(&tmp);
-		i--;
-	}
-	while (tmp->next_arg && i > 1)
-	{
-		if (tmp->next_arg->nbr == -1 || tmp->next_arg->nbr == -2)
-		{
-			larg_del_next(&tmp);
-			larg_del_next(&tmp);
-			i--;
-		}
-		else
-			tmp = tmp->next_arg;
-	}
-	return (rtn);
-}
-
-int		ft_redirection(char *str, char *filename)
+int	ft_redirection(char *str, char *filename)
 {
 	int	file;
 
@@ -58,9 +29,9 @@ int		ft_redirection(char *str, char *filename)
 	return (0);
 }
 
-int		ft_redirection_appen(char *str, char *filename)
+int	ft_redirection_appen(char *str, char *filename)
 {
-	int		file;
+	int	file;
 
 	if (!filename)
 		return (-1);

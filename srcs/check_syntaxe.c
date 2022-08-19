@@ -6,7 +6,7 @@
 /*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 10:41:06 by thbierne          #+#    #+#             */
-/*   Updated: 2022/08/08 10:34:18 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/08/19 10:57:09 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,18 +78,7 @@ int	check_pipe(char *line_read, int i, char c)
 			|| (line_read[y] >= '!' && line_read[y] <= '~'))
 			break ;
 	}
-	if (y == -1)
-		return (-4);
-	while (line_read[++i])
-	{
-		if (line_read[i] == '|')
-			return (-4);
-		if (line_read[i] != ' ')
-			break;
-	}
-	if (!line_read[i])
-		return (-4);
-	return (--i);
+	return (check_pipe2(i, y, line_read));
 }
 
 int	check_pipe_dir(char *line_read)
@@ -105,7 +94,7 @@ int	check_pipe_dir(char *line_read)
 		if (i < 0)
 			return (i);
 		if (!line_read[i])
-			break;
+			break ;
 		i++;
 	}
 	return (i);

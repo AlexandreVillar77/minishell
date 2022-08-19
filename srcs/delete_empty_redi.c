@@ -6,7 +6,7 @@
 /*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 10:32:55 by thbierne          #+#    #+#             */
-/*   Updated: 2022/08/12 12:08:57 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/08/19 10:44:50 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,13 @@ t_llist	*delete_empty_redi(t_llist *list)
 		if (check_full_redi(cpy_cmd) == 1)
 		{
 			if (old == NULL)
-			{
 				list->first_cmd = clear_cmd(list->first_cmd);
-				cpy_cmd = list->first_cmd;
-			}
 			else
-			{
 				old->next_cmd = clear_cmd(old->next_cmd);
+			if (old == NULL)
+				cpy_cmd = list->first_cmd;
+			else
 				cpy_cmd = old->next_cmd;
-			}
 		}
 		else
 		{

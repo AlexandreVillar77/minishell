@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 13:41:37 by thbierne          #+#    #+#             */
-/*   Updated: 2022/08/08 16:11:33 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/19 10:14:45 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,15 +95,7 @@ t_llist	*alloc_path(t_llist *list)
 		tmp = tmp->next_env;
 	}
 	free (str);
-	if (!tmp)
-	{
-		str = ft_strdup("/mnt/nfs/homes/thbierne/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin");
-		list = split_path(str, ':', list);
-		free (str);
-		return (list);
-	}
-	list = split_path(tmp->var, ':', list);
-	return (list);
+	return (test_cmd_utils(tmp, list));
 }
 
 char	*test_cmd(t_llist *list, char *read)

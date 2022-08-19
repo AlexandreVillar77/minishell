@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_redi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 13:03:40 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/21 16:23:02 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/19 10:23:53 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_llist	*alloc_redi_cmd(t_llist *list, char *read_line)
 
 t_llist	*alloc_redi_arg(t_llist *list, char *read_line)
 {
-	char	*cpy; 
+	char	*cpy;
 	t_cmd	*cmd;
 	int		nb;
 

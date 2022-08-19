@@ -6,7 +6,7 @@
 /*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 09:05:29 by thbierne          #+#    #+#             */
-/*   Updated: 2022/08/12 13:21:32 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/08/19 10:53:09 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	count_redi(t_cmd *cmd, int count)
 {
-	int check;
+	int		check;
 	t_arg	*arg_cpy;
 
 	check = 0;
@@ -34,8 +34,20 @@ int	count_redi(t_cmd *cmd, int count)
 
 t_llist	*add_cmd_to_last_arg(t_llist *list, t_cmd *cmd_cpy, int *count)
 {
-	cmd_cpy->next_arg = add_last_t_arg(cmd_cpy->next_arg, cmd_cpy->cmd, cmd_cpy->nbr);
-	cmd_cpy->next_arg = add_last_t_arg(cmd_cpy->next_arg, cmd_cpy->next_arg->arg, 0);
+	cmd_cpy->next_arg = add_last_t_arg
+		(cmd_cpy->next_arg, cmd_cpy->cmd, cmd_cpy->nbr);
+	cmd_cpy->next_arg = add_last_t_arg
+		(cmd_cpy->next_arg, cmd_cpy->next_arg->arg, 0);
+	*count = *count + 1;
+	return (list);
+}
+
+t_llist	*add_arg(t_llist *list, t_cmd *cmd_cpy, int *count, t_arg *arg_cpy)
+{
+	cmd_cpy->next_arg = add_last_t_arg
+		(cmd_cpy->next_arg, arg_cpy->arg, arg_cpy->nbr);
+	cmd_cpy->next_arg = add_last_t_arg
+		(cmd_cpy->next_arg, arg_cpy->next_arg->arg, 0);
 	*count = *count + 1;
 	return (list);
 }
@@ -58,11 +70,7 @@ t_llist	*check_and_add_last_redi(t_llist *list)
 			while (arg_cpy != NULL && count_redi(cmd_cpy, count) != 1)
 			{
 				if (arg_cpy->nbr == -1 || arg_cpy->nbr == -2)
-				{
-					cmd_cpy->next_arg = add_last_t_arg(cmd_cpy->next_arg, arg_cpy->arg, arg_cpy->nbr);
-					cmd_cpy->next_arg = add_last_t_arg(cmd_cpy->next_arg, arg_cpy->next_arg->arg, 0);
-					count++;
-				}
+					list = add_arg(list, cmd_cpy, &count, arg_cpy);
 				arg_cpy = arg_cpy->next_arg;
 			}
 		}

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_arg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 11:35:31 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/27 15:53:51 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/19 10:23:05 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
 
 t_llist	*alloc_arg(t_llist *list, char *read_line)
 {
