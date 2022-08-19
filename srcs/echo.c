@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 11:11:09 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/18 09:40:21 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/19 14:29:13 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ int	print_echo0(t_arg *arg, int n)
 	tmp = arg;
 	while (tmp)
 	{
-		write(1, tmp->arg, ft_strlen(tmp->arg));
-		if (tmp->next_arg)
-			write(1, " ", 1);
+		if (tmp->nbr != -3)
+		{
+			write(1, tmp->arg, ft_strlen(tmp->arg));
+			if (tmp->next_arg)
+				write(1, " ", 1);
+		}
 		tmp = tmp->next_arg;
 	}
 	if (n == 0)
