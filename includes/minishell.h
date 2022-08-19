@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:27:38 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/19 11:18:08 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/19 11:49:20 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,6 @@ t_arg		*add_first_t_arg(char *str, int nbr);
 t_arg		*add_last_t_arg(t_arg *list, char *str, int nbr);
 void		larg_del_next(t_arg **arg);
 void		larg_del_first(t_arg **arg);
-t_arg		**del_redir(t_arg *arg);
 t_cmd		*larg_del_f(t_cmd *cmd);
 t_arg		*larg_del_n(t_arg *arg, char **output);
 t_llist      *del_redirection(t_llist *list);
@@ -242,14 +241,20 @@ t_llist		*delete_empty_redi(t_llist *list);
 int			check_full_redi(t_cmd *cmd);
 t_cmd		*clear_cmd(t_cmd *cmd);
 
-t_cmd	*del_cmd_for_redi(t_cmd *cmd, char **output);
-t_arg	*del_arg_for_redi(t_arg *arg, char **output);
-t_llist	*manage_redi(t_llist *list);
-t_cmd	*alloc_output(t_cmd *cmd, char **output, int *i);
-t_cmd	*alloc_input(t_cmd *cmd, char **input);
-int		count_redir(t_cmd *cmd);
-t_cmd	*put_redi_for_cmd(t_cmd *cmd, char **input, char **output);
-char	*return_question(char* line_read, int i);
+t_cmd		*del_cmd_for_redi(t_cmd *cmd, char **output);
+t_arg		*del_arg_for_redi(t_arg *arg, char **output);
+t_llist		*manage_redi(t_llist *list);
+t_cmd		*alloc_output(t_cmd *cmd, char **output, int *i);
+t_cmd		*alloc_input(t_cmd *cmd, char **input);
+int			count_redir(t_cmd *cmd);
+t_cmd		*put_redi_for_cmd(t_cmd *cmd, char **input, char **output);
+char		*return_question(char* line_read, int i);
+void		handler(int num);
+t_llist*	test_cmd_utils(t_env *tmp, t_llist *list);
+char		*replace_dollar2(char *line_read, t_env *first_env, int *i);
+int			check_pipe2(int i, int y, char *line_read);
+char		*check_eof(char *join, char *read, char *eof, int fd[2]);
+char		*return_join(char *join, char *read);
 
 /* builtins */
 
@@ -270,10 +275,10 @@ int			check_redir(t_arg *arg);
 char		*get_fd_name(t_arg *arg);
 
 //exit.c
-int			ft_exit(t_llist *list, t_cmd *cmd);
+int			ft_exit(t_llist *list);
 
 //env.c
-int			ft_penv(t_llist *list, t_cmd *cmd);
+int			ft_penv(t_llist *list);
 
 //pwd_tuils.c
 void		print_err_path(void);
@@ -282,7 +287,7 @@ void		pwd_redir(t_arg *tmp, char *str);
 //pwd.c
 void 		ft_update_pwd(t_llist **list);
 void 		ft_update_oldpwd(t_llist **list);
-int			ft_pwd(t_cmd *cmd);
+int			ft_pwd(t_llist *list);
 
 //ft_make_file.c
 char		*recup_argx(t_arg *arg);
@@ -290,10 +295,10 @@ int			ft_make_file(char *filename);
 
 //chdir.c
 char		*get_oldpwd(t_llist *list);
-int			ft_cd(t_llist *list, t_cmd *cmd);
+int			ft_cd(t_llist *list);
 char		*get_pwd(t_llist *list);
 char		*get_afeq(char *str);
-int			rtn_print_errchdir(char *dest, char *tofree, t_cmd *cmd);
+int			rtn_print_errchdir(t_llist *list, char *dest, char *tofree);
 
 //unset_utils.c
 void 		fulltriche(t_llist **list, int x, int size);
@@ -305,7 +310,7 @@ int			is_target(t_env *tmp, t_llist **list, t_arg *arg, int x);
 //unset.c
 t_llist		*del_env(t_llist *list, int m);
 t_llist		*delete_lenv(int x, t_llist *list, int m);
-int			ft_unset(t_llist *list, t_cmd *cmd);
+int			ft_unset(t_llist *list);
 
 //export_h_utils.c
 int			largest(char *s1, char *s2);
@@ -318,28 +323,28 @@ int			check_for_update(t_llist **list, t_arg *arg, char *name);
 int			ft_tablen(char **src);
 char		**remalloc_export(char **src, int size, int i);
 char		**ft_ex_on_h(char **list, t_arg *arg, char *name);
-int			print_export(t_llist *list, t_cmd *cmd);
+int			print_export(t_llist *list);
 
 //export_utils.c
 int			print_experror(t_arg *arg, int er);
-int			rtn_checker(t_cmd *cmd);
-int			export_fullchecker(t_llist *list, int x, t_arg *arg, t_cmd *cmd);
-int			ft_fullexport(t_llist **list, t_cmd *cmd);
+int			rtn_checker(t_llist *list);
+int			export_fullchecker(t_llist *list, int x, t_arg *arg);
+int			ft_fullexport(t_llist **list);
 
 //export_utils2.c
 char		*recup_name(t_arg *arg);
 char		*delete_equal(t_arg *arg, int i, int x);
 int			check_ifeq(char *str);
 int			export_checker(t_arg *arg);
-int			export_redir_check(t_cmd *cmd);
+int			export_redir_check(t_llist *list);
 
 //ft_export.c
 char		*get_var(t_arg *arg);
 int			ft_export(t_llist **list, t_arg  **tmp, char *name);
 
-//del_arg.c
-t_cmd		*del_arg(t_cmd *cmd);
-t_cmd		*delete_larg(int x, t_cmd *cmd);
+//del_rag.c
+t_llist		*del_arg(t_llist *list);
+t_llist		*delete_larg(int x, t_llist *list);
 
 //ft_exec_other_utils.c
 int			get_fd(t_arg *arg);
@@ -354,7 +359,7 @@ int			ft_exec_others(t_llist *list);
 
 //ft_pipex_utils.c
 void		ft_closing_end(t_pipe *pip);
-int			our_built(t_llist *list, t_pipe *pip, t_cmd *cmd);
+int			our_built(t_llist *list, t_pipe *pip);
 void		ft_cmdnotf(char *str, char *name);
 void		ft_cmdnotf2(char *str, char *s2);
 
@@ -374,8 +379,6 @@ void		free_arg_tab(char **arg_tab);
 
 //free_pip.c
 void		crash_freed(t_llist **list, t_pipe *pip, char **arg_tab);
-int			not_builtins(t_pipe *pip);
-void		crash_freed2(t_llist **list, t_pipe *pip, char **arg_tab);
 
 //ft_pipex.c
 int			check_redir_pipe(t_llist *list, t_pipe *pip);
