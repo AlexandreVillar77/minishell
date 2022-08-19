@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 14:51:36 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/17 10:27:42 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/19 10:48:21 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,21 +101,21 @@ char	**ft_ex_on_h(char **list, t_arg *arg, char *name)
 	return (list);
 }
 
-int	print_export(t_llist *list)
+int	print_export(t_llist *list, t_cmd *cmd)
 {
 	int	x;
 	int	fd;
 
 	x = -1;
-	if (check_redir(list->first_cmd->next_arg) == -1)
+	if (check_redir(cmd->next_arg) == -1)
 	{
-		fd = open(get_fd_name(list->first_cmd->next_arg), O_RDWR);
+		fd = open(get_fd_name(cmd->next_arg), O_RDWR);
 		if (fd < 0)
 			exit (EXIT_FAILURE);
 	}
-	else if (check_redir(list->first_cmd->next_arg) == -2)
+	else if (check_redir(cmd->next_arg) == -2)
 	{
-		fd = open(get_fd_name(list->first_cmd->next_arg), O_RDWR | O_APPEND);
+		fd = open(get_fd_name(cmd->next_arg), O_RDWR | O_APPEND);
 		if (fd < 0)
 			exit (EXIT_FAILURE);
 	}

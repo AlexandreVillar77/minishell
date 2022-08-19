@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_del.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 14:55:19 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/17 11:16:22 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/17 16:13:53 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,14 @@ t_cmd	*larg_del_f(t_cmd *cmd)
 	return (cmd);
 }
 
-t_arg	*larg_del_n(t_arg *arg)
+t_arg	*larg_del_n(t_arg *arg, char **output)
 {
 	t_arg	*tmp;
 
 	if (!arg)
 		return (NULL);
+	if (*output)
+		free(output);
 	tmp = arg->next_arg;
 	arg->next_arg = tmp->next_arg;
 	free(tmp->arg);

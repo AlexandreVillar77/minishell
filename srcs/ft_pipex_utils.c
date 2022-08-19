@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 10:49:56 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/17 10:52:15 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/19 11:18:04 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,13 @@ t_cmd	*get_t_cmd(t_llist *list, t_pipe *pip)
 void	ft_cmdnotf(char *str, char *name)
 {
 	char	*f;
+	char	*tmp;
 
-	f = ft_strjoin(str, name);
-	f = ft_strjoin(f, "\n");
+	tmp = ft_strjoin(str, name);
+	f = ft_strjoin(tmp, "\n");
 	write(STDERR_FILENO, f, ft_strlen(f));
 	free(f);
+	free(tmp);
 }
 
 void	ft_cmdnotf2(char *str, char *s2)
@@ -58,29 +60,29 @@ void	ft_cmdnotf2(char *str, char *s2)
 	free(f);
 }
 
-int	our_built(t_llist *list, t_pipe *pip)
+int	our_built(t_llist *list, t_pipe *pip, t_cmd *cmd)
 {
-	t_llist		*tmp;
+	t_cmd		*tmp;
 	static int	i;
 
-	tmp = list;
+	tmp = cmd;
 	i = 0;
 	while (++i < pip->x)
-		tmp->first_cmd = tmp->first_cmd->next_cmd;
+		tmp = tmp->next_cmd;
 	if (ft_strncmp(pip->cmd, "echo", 4) == 0)
-		return (ft_echo(tmp->first_cmd, 0, 0));
+		return (ft_echo(tmp, 0, 0));
 	else if (ft_strncmp(pip->cmd, "env", 3) == 0)
-		return (ft_penv(tmp));
+		return (ft_penv(list, tmp));
 	else if (ft_strncmp(pip->cmd, "pwd", 3) == 0)
 		return (ft_pwd(tmp));
 	else if (ft_strncmp(pip->cmd, "cd", 2) == 0)
-		return (ft_cd(tmp));
+		return (ft_cd(list, tmp));
 	else if (ft_strncmp(pip->cmd, "export", 6) == 0)
-		return (ft_fullexport(&tmp));
+		return (ft_fullexport(&list, tmp));
 	else if (ft_strncmp(pip->cmd, "unset", 5) == 0)
-		return (ft_unset(tmp));
+		return (ft_unset(list, tmp));
 	else if (ft_strncmp(pip->cmd, "exit", 4) == 0)
-		return (ft_exit(list));
+		return (ft_exit(list, tmp));
 	else
 		return (-3);
 }

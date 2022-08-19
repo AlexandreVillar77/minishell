@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 13:26:31 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/17 12:24:34 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/18 13:19:20 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*get_cmd_name(char *str)
 
 	x = ft_strlen(str) - 1;
 	i = 0;
-	while (str[x] != '/')
+	while (x >= 0 && str[x] != '/')
 		x--;
 	if (str[0] != '/')
 		return (str);
@@ -82,7 +82,6 @@ void	process01(t_llist *list, int fd, char *cmd, t_arg *tmp_arg)
 		if (access(list->first_cmd->cmd, X_OK) == 0)
 			execve(list->first_cmd->cmd, arg_tab, list->env);
 	exec_path_p1(list, arg_tab, cmd);
-	free (arg_tab);
 }
 
 int	ft_exec_others(t_llist *list)
@@ -109,5 +108,7 @@ int	ft_exec_others(t_llist *list)
 	if (fd != 0)
 		close (fd);
 	waitpid(child, &status, 0);
+	if (status == 256)
+		return (127);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 12:04:32 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/17 10:14:22 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/19 10:40:57 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,17 @@ void	print_env_fd(t_env *tmp, char *filename, int red)
 	free(content);
 }
 
-int	ft_penv(t_llist *list)
+int	ft_penv(t_llist *list, t_cmd *cmd)
 {
 	int		fd;
 	t_env	*tmp;
 	t_arg	*filename;
 
 	fd = 0;
-	if (list->first_cmd->next_arg)
+	if (cmd->next_arg)
 	{
-		filename = list->first_cmd->next_arg;
-		fd = check_redir(list->first_cmd->next_arg);
+		filename = cmd->next_arg;
+		fd = check_redir(cmd->next_arg);
 		if (fd < 0)
 		{
 			while (filename->nbr > 0)

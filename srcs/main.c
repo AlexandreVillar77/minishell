@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:22:02 by thbierne          #+#    #+#             */
-/*   Updated: 2022/08/17 12:30:10 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/19 10:12:04 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	main(int argc, char **argv, char **envp)
 	int			i;
 
 	(void)argc;
-	//(void)argv;
+	(void)argv;
 	i = 1;
 	line_read = NULL;
 	list = init_llist(envp);
@@ -77,9 +77,9 @@ int	main(int argc, char **argv, char **envp)
 					line_read = NULL;
 					if (list->first_cmd)
 					{
-						list = del_redirection(list);
-						print_t_cmd(list->first_cmd);
-						fctnl_manager(list);
+						list = manage_redi(list);
+						//print_t_cmd(list->first_cmd);
+						LOL = fctnl_manager(list);
 					}
 				}
 				list = free_llist_cmd(list);

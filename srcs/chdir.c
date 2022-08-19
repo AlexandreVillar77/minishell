@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 14:18:06 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/17 11:28:22 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/19 11:05:45 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ int	cd_alone(t_llist *list)
 	return (i);
 }
 
-int	ft_cd(t_llist *list)
+int	ft_cd(t_llist *list, t_cmd *cmd)
 {
 	char	*dest;
 	char	*tmp;
 
-	if (!list->first_cmd->next_arg)
+	if (!cmd->next_arg)
 		return (cd_alone(list));
-	dest = list->first_cmd->next_arg->arg;
+	dest = cmd->next_arg->arg;
 	if (ft_strncmp(dest, "-", ft_strlen(dest)) == 0)
 		dest = getlsp(list);
 	if (dest == NULL)
@@ -71,7 +71,7 @@ int	ft_cd(t_llist *list)
 	if (tmp == NULL && ft_strncmp(dest, "..", ft_strlen(dest)) == 0)
 		write(2, "cd: ..: No such file or directory\n", 35);
 	else if (chdir(dest) == -1)
-		return (rtn_print_errchdir(list, dest, tmp));
+		return (rtn_print_errchdir(dest, tmp, cmd));
 	else
 	{
 		free(list->lastpos);

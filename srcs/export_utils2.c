@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 10:17:32 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/17 10:25:30 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/19 10:46:08 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,11 @@ int	export_checker(t_arg *arg)
 	return (0);
 }
 
-int	export_redir_check(t_llist *list)
+int	export_redir_check(t_cmd *cmd)
 {
 	t_arg	*tmp;
 
-	tmp = list->first_cmd->next_arg;
+	tmp = cmd->next_arg;
 	if (get_nbarg(tmp) != 2)
 		return (1);
 	if (ft_strncmp(tmp->arg, ">>", ft_strlen(tmp->arg)) != 0)

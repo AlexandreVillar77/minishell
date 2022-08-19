@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 14:19:50 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/17 11:24:50 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/19 11:09:25 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,23 +80,24 @@ void	ft_update_oldpwd(t_llist **list)
 	}
 }
 
-int	ft_pwd(t_llist *list)
+int	ft_pwd(t_cmd *cmd)
 {
 	char	*path;
 	t_arg	*tmp;
 
-	if (list->first_cmd->next_arg)
-		tmp = list->first_cmd->next_arg;
+	if (cmd->next_arg)
+		tmp = cmd->next_arg;
 	else
 		tmp = NULL;
 	path = NULL;
 	path = getcwd(path, 0);
 	if (!(path))
 		print_err_path();
-	else if (tmp)
+	else if ((check_redir(tmp)) == -1 || (check_redir(tmp)) == -2)
 		pwd_redir(tmp, path);
 	else
 		printf("%s\n", path);
-	free(path);
+	if (path)
+		free(path);
 	return (0);
 }

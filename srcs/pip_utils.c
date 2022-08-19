@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 10:59:46 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/17 12:41:36 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/18 11:34:32 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,17 @@ int	count_pipe(t_llist *list)
 	return (x);
 }
 
-t_pipe	*pip_init(t_pipe *pip, t_llist *list)
+t_pipe	*pip_init(t_llist *list)
 {
+	t_pipe	*pip;
+	int		end[count_pipe(list) * 2];
+
+	pip = malloc(sizeof(t_pipe) * 1);
 	pip->x = 1;
-	pip->cmd = get_cmd_name(list->first_cmd->cmd);
+	pip->cmd = NULL;
 	pip->npip = count_pipe(list);
 	pip->fd = 0;
-	pip->end = malloc(sizeof(int) * (pip->npip * 2));
+	pip->end = end;
 	return (pip);
 }
 

@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 11:11:09 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/17 10:11:11 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/18 09:40:21 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,15 @@ int	args_size(t_arg *arg)
 	return (size);
 }
 
+char	*add_space(char *str, char *add)
+{
+	char	*rtn;
+
+	rtn = ft_strjoin(str, add);
+	free (str);
+	return (rtn);
+}
+
 int	print_echo_fd(t_arg *arg, char *filename, int n, int red)
 {
 	char	*content;
@@ -58,13 +67,13 @@ int	print_echo_fd(t_arg *arg, char *filename, int n, int red)
 	{
 		if (arg->nbr < 0)
 			break ;
-		content = ft_strjoin(content, arg->arg);
+		content = add_space(content, arg->arg);
 		if (arg->next_arg && arg->next_arg->nbr > 0)
 			content = ft_strjoin(content, " ");
 		arg = arg->next_arg;
 	}
 	if (n == 0)
-		content = ft_strjoin(content, "\n");
+		content = add_space(content, "\n");
 	if (red == -1)
 		ft_redirection(content, filename);
 	else if (red == -2)

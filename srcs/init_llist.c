@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_llist.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 13:41:04 by thbierne          #+#    #+#             */
-/*   Updated: 2022/08/08 13:37:05 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/08/19 10:36:20 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ t_exe	*delete_first_t_exe(t_exe *list)
 	}
 	return (NULL);
 }
-
-/* 	alloue les cmd a coder ainsi que l'env	*/
 
 t_llist	*init_llist(char **envp)
 {

@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 10:36:44 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/17 12:29:04 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/18 13:07:20 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,20 +76,22 @@ void	exec_path_p1(t_llist *list, char **arg_tab, char *cmd)
 	i = -1;
 	while (list->path && list->path[++i])
 	{
-		tmp = get_cmd_name(list->first_cmd->cmd);
-		cmd = ft_strjoin(list->path[i], tmp);
-		free (tmp);
+		tmp = ft_strjoin(list->path[i], cmd);
 		if (!cmd)
 			break ;
-		if (access(cmd, X_OK) == 0)
-			execve(cmd, arg_tab, list->env);
-		free (cmd);
+		if (access(tmp, X_OK) == 0)
+			execve(tmp, arg_tab, list->env);
+		free (tmp);
 	}
 	if (list->path)
 		ft_cmdnotf("command not found: ", list->first_cmd->cmd);
 	else
 		ft_cmdnotf2(list->first_cmd->cmd, " : No such file or directory\n");
-	LOL = 127;
-	free (arg_tab);
+	LOL -= LOL;
+	LOL += 127;
+	free_arg_tab(arg_tab);
+	free (list->first_cmd);
+	free_llist(list, NULL);
+	free (cmd);
 	exit (EXIT_FAILURE);
 }

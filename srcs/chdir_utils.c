@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 10:02:38 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/17 10:24:48 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/19 11:05:36 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,14 @@ char	*get_oldpwd(t_llist *list)
 	return (NULL);
 }
 
-int	rtn_print_errchdir(t_llist *list, char *dest, char *tofree)
+int	rtn_print_errchdir(char *dest, char *tofree, t_cmd *cmd)
 {
-	write(2, list->first_cmd->cmd, ft_strlen(list->first_cmd->cmd));
+	write(2, cmd->cmd, ft_strlen(cmd->cmd));
 	write(2, ": ", 2);
 	write(2, dest, ft_strlen(dest));
 	write(2, ": ", 2);
 	perror("");
 	free(tofree);
 	LOL = 1;
-	return (-1);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 13:54:59 by thbierne          #+#    #+#             */
-/*   Updated: 2022/06/30 11:04:03 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/08/18 10:43:11 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,12 +128,34 @@ char	*replace_dollar(char *line_read, t_env *first_env, int mode)
 		}
 		else if (line_read[i] == '$')
 		{
-			tmp = check_dollar_t_env(line_read, first_env, i);
-			line_read = join_line_read(line_read, tmp, i);
-			if (tmp != NULL)
-				i = i + len(tmp->var);
-			i--;
+			if (line_read[i] == '$' && line_read[i + 1] == '?')
+				line_read = return_question(line_read, i);
+			else
+			{
+				tmp = check_dollar_t_env(line_read, first_env, i);
+				line_read = join_line_read(line_read, tmp, i);
+				if (tmp != NULL)
+					i = i + len(tmp->var);
+				i--;
+			}
 		}
 	}
+	return (line_read);
+}
+
+char	*return_question(char* line_read, int i)
+{
+	char	*str;
+	char	*tmp;
+	t_env	*dollar;
+
+	str = ft_itoa(LOL);
+	tmp = ft_strjoin("?=", str);
+	dollar = NULL;
+	free(str);
+	dollar = add_t_env(dollar, tmp);
+	free(tmp);
+	line_read = join_line_read(line_read, dollar, i);
+	dollar = delete_first_t_env(dollar);
 	return (line_read);
 }

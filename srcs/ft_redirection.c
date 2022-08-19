@@ -3,72 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:53:32 by thbierne          #+#    #+#             */
-/*   Updated: 2022/08/12 14:41:24 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/16 11:53:26 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int		count_redir(t_arg *arg)
-{
-	int		x;
-	t_arg	*tmp;
-
-	x = 0;
-	tmp = arg;
-	while (tmp->next_arg)
-	{
-		if (tmp->nbr == -1 || tmp->nbr == -2)
-			x++;
-		tmp = tmp->next_arg;
-	}
-	return (x);
-}
-
-t_llist	*del_redirection(t_llist *list)
-{
-	t_cmd	*cmd_cpy;
-	t_arg	*arg_cpy;
-	int 	i;
-
-	cmd_cpy = list->first_cmd;
-	while (cmd_cpy)
-	{
-		if (cmd_cpy->next_arg)
-		{
-			i = count_redir(cmd_cpy->next_arg);
-			if (cmd_cpy->next_arg && (cmd_cpy->next_arg->nbr == -1 || cmd_cpy->next_arg->nbr == -2))
-			{
-				while ((cmd_cpy->next_arg->nbr == -1 || cmd_cpy->next_arg->nbr == -2) && i > 1)
-				{
-					cmd_cpy = larg_del_f(cmd_cpy);
-					cmd_cpy = larg_del_f(cmd_cpy);
-					i--;
-				}
-			}
-			else if (i > 1)
-			{
-				arg_cpy = cmd_cpy->next_arg;
-				while (arg_cpy->next_arg && i > 1)
-				{
-					if ((arg_cpy->next_arg->nbr == -1 || arg_cpy->next_arg->nbr == -2) && i > 1)
-					{
-						arg_cpy = larg_del_n(arg_cpy);
-						arg_cpy = larg_del_n(arg_cpy);
-						i--;
-					}
-					else
-						arg_cpy = arg_cpy->next_arg;
-				}
-			}
-		}
-		cmd_cpy = cmd_cpy->next_cmd;
-	}
-	return (list);
-}
 
 t_arg	**del_redir(t_arg *arg)
 {
@@ -76,7 +18,7 @@ t_arg	**del_redir(t_arg *arg)
 	int		i;
 	t_arg	**rtn;
 
-	i = count_redir(arg);
+	//i = count_redir(arg);
 	tmp = arg;
 	rtn = &tmp;
 	while (i > 1 && (tmp->nbr == -1 || tmp->nbr == -2))

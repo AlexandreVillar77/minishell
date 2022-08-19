@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:42:08 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/17 10:25:34 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/19 11:00:52 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,37 +28,37 @@ int	print_experror(t_arg *arg, int er)
 		return (0);
 }
 
-int	rtn_checker(t_llist *list)
+int	rtn_checker(t_cmd *cmd)
 {
-	list->first_cmd->next_arg = NULL;
+	cmd->next_arg = NULL;
 	return (1);
 }
 
-int	export_fullchecker(t_llist *list, int x, t_arg *arg)
+int	export_fullchecker(t_llist *list, int x, t_arg *arg, t_cmd *cmd)
 {
 	int	n;
 
 	n = 0;
 	if (print_experror(arg, 0) == 1)
 	{
-		n = get_nbarg(list->first_cmd->next_arg);
+		n = get_nbarg(cmd->next_arg);
 		if (x == 0)
-			list = del_arg(list);
+			cmd = del_arg(cmd);
 		else
 		{
 			if (n == 2)
-				arg = list->first_cmd->next_arg;
-			list = delete_larg(x, list);
+				arg = cmd->next_arg;
+			cmd = delete_larg(x, cmd);
 			if (n == 2)
-				list->first_cmd->next_arg = arg;
+				cmd->next_arg = arg;
 		}
 		LOL = 1;
 		if (n == 1)
-			return (rtn_checker(list));
-		return (export_fullchecker(list, x, arg));
+			return (rtn_checker(cmd));
+		return (export_fullchecker(list, x, arg, cmd));
 	}
 	else if (arg->next_arg)
-		return (export_fullchecker(list, ++x, arg->next_arg));
+		return (export_fullchecker(list, ++x, arg->next_arg, cmd));
 	else
 		return (0);
 }
@@ -86,29 +86,29 @@ int	ft_fullexport_part2(t_llist **list, t_arg *tmp)
 	return (0);
 }
 
-int	ft_fullexport(t_llist **list)
+int	ft_fullexport(t_llist **list, t_cmd *cmd)
 {
 	t_arg	*tmp;
 
-	if ((*list)->first_cmd->next_arg)
+	if (cmd->next_arg)
 	{
-		if (export_redir_check(*list) == 0)
+		if (export_redir_check(cmd) == 0)
 		{
-			print_export(*list);
+			print_export(*list, cmd);
 			return (0);
 		}
 		else
-			tmp = (*list)->first_cmd->next_arg;
+			tmp = cmd->next_arg;
 	}
 	else
 	{
-		print_export(*list);
+		print_export(*list, cmd);
 		return (0);
 	}
-	export_fullchecker(*list, 0, tmp);
-	if (!(*list)->first_cmd->next_arg)
+	export_fullchecker(*list, 0, tmp, cmd);
+	if (!cmd->next_arg)
 		return (0);
-	tmp = (*list)->first_cmd->next_arg;
+	tmp = cmd->next_arg;
 	ft_fullexport_part2(list, tmp);
 	return (0);
 }

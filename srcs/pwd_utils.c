@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 11:17:02 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/17 11:24:58 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/18 09:47:39 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,14 @@ void	pwd_redir(t_arg *tmp, char *str)
 {
 	int		fd;
 	char	*path;
+	char	*filename;
 
+	filename = get_fd_name(tmp);
 	fd = check_redir(tmp);
 	path = ft_strjoin(str, "\n");
 	if (fd == -1)
-		ft_redirection(path, recup_argx(*(del_redir(tmp))));
+		ft_redirection(path, filename);
 	else if (fd == -2)
-		ft_redirection_appen(path, recup_argx(*(del_redir(tmp))));
+		ft_redirection_appen(path, filename);
+	free (path);
 }

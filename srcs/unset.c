@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 10:24:43 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/17 11:35:54 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/19 11:11:11 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,15 @@ t_llist	*delete_lenv(int x, t_llist *list, int m)
 	return (list);
 }
 
-int	ft_unset(t_llist *list)
+int	ft_unset(t_llist *list, t_cmd *cmd)
 {
 	t_env	*tmp;
 	int		x;
 	t_arg	*arg;
 
-	if (!list->first_cmd->next_arg)
+	if (!cmd->next_arg)
 		return (0);
-	arg = list->first_cmd->next_arg;
+	arg = cmd->next_arg;
 	while (arg)
 	{
 		x = 0;
