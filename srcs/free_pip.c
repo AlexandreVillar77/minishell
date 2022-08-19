@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 15:34:54 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/19 11:30:35 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/19 12:25:18 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,22 @@ int		not_builtins(t_pipe *pip)
 		return (0);
 }
 
+t_cmd	*right_cmd(t_pipe *pip, t_llist *list)
+{
+	t_cmd	*cmd;
+	int		i;
+
+	i = 0;
+	cmd = list->first_cmd;
+	while (++i < pip->x)
+		cmd = cmd->next_cmd;
+	return (cmd);
+}
+
 void	crash_freed(t_llist **list, t_pipe *pip, char **arg_tab)
 {
 	free_arg_tab(arg_tab);
+	*list = free_llist_cmd(*list);
 	free_llist(*list, NULL);
 	free (pip->end);
 	free (pip);

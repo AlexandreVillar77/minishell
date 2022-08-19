@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 10:49:56 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/19 11:18:04 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/19 12:22:05 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,27 +62,20 @@ void	ft_cmdnotf2(char *str, char *s2)
 
 int	our_built(t_llist *list, t_pipe *pip, t_cmd *cmd)
 {
-	t_cmd		*tmp;
-	static int	i;
-
-	tmp = cmd;
-	i = 0;
-	while (++i < pip->x)
-		tmp = tmp->next_cmd;
-	if (ft_strncmp(pip->cmd, "echo", 4) == 0)
-		return (ft_echo(tmp, 0, 0));
-	else if (ft_strncmp(pip->cmd, "env", 3) == 0)
-		return (ft_penv(list, tmp));
-	else if (ft_strncmp(pip->cmd, "pwd", 3) == 0)
-		return (ft_pwd(tmp));
-	else if (ft_strncmp(pip->cmd, "cd", 2) == 0)
-		return (ft_cd(list, tmp));
-	else if (ft_strncmp(pip->cmd, "export", 6) == 0)
-		return (ft_fullexport(&list, tmp));
-	else if (ft_strncmp(pip->cmd, "unset", 5) == 0)
-		return (ft_unset(list, tmp));
-	else if (ft_strncmp(pip->cmd, "exit", 4) == 0)
-		return (ft_exit(list, tmp));
+	if (ft_strncmp(pip->cmd, "echo", 5) == 0)
+		return (ft_echo(cmd, 0, 0));
+	else if ((ft_strncmp(pip->cmd, "env\0", 4)) == 0)
+		return (ft_penv(list, cmd));
+	else if (ft_strncmp(pip->cmd, "pwd", 4) == 0)
+		return (ft_pwd(cmd));
+	else if (ft_strncmp(pip->cmd, "cd", 3) == 0)
+		return (ft_cd(list, cmd));
+	else if (ft_strncmp(pip->cmd, "export", 7) == 0)
+		return (ft_fullexport(&list, cmd));
+	else if (ft_strncmp(pip->cmd, "unset", 6) == 0)
+		return (ft_unset(list, cmd));
+	else if (ft_strncmp(pip->cmd, "exit", 5) == 0)
+		return (ft_exit(list, cmd));
 	else
 		return (-3);
 }

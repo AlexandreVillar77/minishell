@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:17:23 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/19 10:13:19 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/19 12:23:00 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	pipex(t_llist *list, t_pipe *pip, int j, pid_t pid)
 		pip->x++;
 		j += 2;
 		if (pip->cmd && not_builtins(pip) == 0)
-			free (pip->cmd);
+			//free (pip->cmd);
 		if (arg_tab)
 			free_arg_tab(arg_tab);
 	}
