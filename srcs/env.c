@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 12:04:32 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/19 10:40:57 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/19 14:06:39 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	print_env0(t_env *tmp)
 	while (tmp)
 	{
 		write(1, tmp->name, ft_strlen(tmp->name));
-		write(1, tmp->var, ft_strlen(tmp->var));
+		if (tmp->var)
+			write(1, tmp->var, ft_strlen(tmp->var));
 		write(1, "\n", 1);
 		tmp = tmp->next_env;
 	}
