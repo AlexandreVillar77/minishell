@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:27:38 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/22 09:40:44 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/08/22 09:32:02 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+extern int LOL;
 
 # include "../libft/include/libft.h"
 # include <unistd.h>
@@ -32,61 +34,70 @@
 # include <signal.h>
 # include <errno.h>
 
-typedef struct s_llist	t_llist;
-typedef struct s_arg	t_arg;
-typedef struct s_exe	t_exe;
-typedef struct s_env	t_env;
-typedef struct s_cmd	t_cmd;
-typedef struct s_pipe	t_pipe;
+//dans la llist_arg:
+// arg = > 0;
+// >  =  -1;
+// >> =  -2;
+// <  =  -3;
+// << =  -4;
+// |  =  -5;
+// .tmp = -6
+
+typedef struct s_llist t_llist;
+typedef struct s_arg t_arg;
+typedef struct s_exe t_exe;
+typedef struct s_env t_env;
+typedef struct s_cmd t_cmd;
+typedef	struct s_pipe t_pipe;
 
 struct s_pipe
 {
-	int		*end;
-	int		fd;
-	char	*cmd;
-	int		x;
-	int		npip;
+	int			*end;
+	int			fd;
+	char		*cmd;
+	int			x;
+	int			npip;
 };
 
 struct s_arg
 {
-	int		nbr;
-	char	*arg;
-	t_arg	*next_arg;
+	int			nbr;
+	char 		*arg;
+	t_arg		*next_arg;
 };
 
 struct s_cmd
 {
-	int		nbr;
-	char	*cmd;
-	t_cmd	*next_cmd;
-	t_arg	*next_arg;
+	int 		nbr;
+	char		*cmd;
+	t_cmd		*next_cmd;
+	t_arg		*next_arg;
 };
 
 struct s_env
 {
-	char	*name;
-	char	*var;
-	t_env	*next_env;
+	char		*name;
+	char		*var;
+	t_env		*next_env;
 };
 
 struct s_exe
 {
-	char	*name_exe;
-	t_exe	*next_exe;
+	char		*name_exe;
+	t_exe 		*next_exe;
 };
 
 struct s_llist
 {
-	char	*lastpos;
-	int		index;
-	int		new_cmd;
-	t_pipe	*pip;
-	t_cmd	*first_cmd;
-	t_env	*first_env;
-	t_exe	*first_exe;
-	char	**path;
-	char	**env;
+	char		*lastpos;
+	int			index;
+	int			new_cmd;
+	t_pipe		*pip;
+	t_cmd		*first_cmd;
+	t_env		*first_env;
+	t_exe		*first_exe;
+	char 		**path;
+	char		**env;
 };
 
 t_llist		*alloc_arg(t_llist *list, char *read_line);
@@ -115,7 +126,7 @@ void		larg_del_next(t_arg **arg);
 void		larg_del_first(t_arg **arg);
 t_cmd		*larg_del_f(t_cmd *cmd);
 t_arg		*larg_del_n(t_arg *arg, char **output);
-t_llist		*del_redirection(t_llist *list);
+t_llist      *del_redirection(t_llist *list);
 
 /* check syntaxe */
 
@@ -127,8 +138,7 @@ int			check_syntaxe(char *line_read);
 
 /* fonction qui alloue echo */
 
-t_llist		*alloc_flags_echo3(char *read_line,
-				t_llist *list, int *z, t_cmd *tmp);
+t_llist		*alloc_flags_echo3(char *read_line, t_llist *list, int *z, t_cmd *tmp);
 t_llist		*alloc_flags_echo2(char *read_line, t_llist *list, int *z);
 t_llist		*alloc_flags_echo(char *read_line, t_llist *list);
 t_llist		*ft_case_echo(t_llist *list, char *read_line);
@@ -163,6 +173,8 @@ char		*join_line_read2(t_env *tmp, char *cpy, int *i, int *y);
 char		*join_line_read(char *line_read, t_env *tmp, int i);
 char		*replace_dollar(char *line_read, t_env *first_env, int mode);
 t_env		*check_dollar_t_env(char *line_read, t_env *first_env, int i);
+
+/* fonction qui join pour creer le chemin absolue des commandes a ne pas coder */
 
 char		*split_path_into_tab2(char *str, char *split, int *i, int *y);
 char		**split_path_into_tab(char **split, char *str, int i, int count);
@@ -205,7 +217,7 @@ t_llist		*sort_redi(t_llist *list);
 t_llist		*sort_llist_redi(t_llist *list, t_cmd *t_cmd);
 t_llist		*delete_pipe(t_llist *list);
 
-t_env		*ft_set_base_env(void);
+t_env		*ft_set_base_env();
 
 t_llist		*create_redi(t_llist *list);
 void		check_files(char *filename, int mode);
@@ -215,7 +227,7 @@ t_llist		*check_and_add_last_redi(t_llist *list);
 t_llist		*add_cmd_to_last_arg(t_llist *list, t_cmd *cmd_cpy, int *count);
 int			count_redi(t_cmd *cmd, int count);
 
-char		*read_line(void);
+char		*read_line();
 void		write_line_read(int fd[2]);
 
 int			count_heredoc(t_cmd *cmd);
@@ -236,9 +248,9 @@ t_cmd		*alloc_output(t_cmd *cmd, char **output, int *i);
 t_cmd		*alloc_input(t_cmd *cmd, char **input);
 int			count_redir(t_cmd *cmd);
 t_cmd		*put_redi_for_cmd(t_cmd *cmd, char **input, char **output);
-char		*return_question(char *line_read, int i);
+char		*return_question(char* line_read, int i);
 void		handler(int num);
-t_llist		*test_cmd_utils(t_env *tmp, t_llist *list);
+t_llist*	test_cmd_utils(t_env *tmp, t_llist *list);
 char		*replace_dollar2(char *line_read, t_env *first_env, int *i);
 int			check_pipe2(int i, int y, char *line_read);
 char		*check_eof(char *join, char *read, char *eof, int fd[2]);
@@ -272,8 +284,8 @@ void		print_err_path(void);
 void		pwd_redir(t_arg *tmp, char *str);
 
 //pwd.c
-void		ft_update_pwd(t_llist **list);
-void		ft_update_oldpwd(t_llist **list);
+void 		ft_update_pwd(t_llist **list);
+void 		ft_update_oldpwd(t_llist **list);
 int			ft_pwd(t_cmd *cmd);
 
 //ft_make_file.c
@@ -288,7 +300,7 @@ char		*get_afeq(char *str);
 int			rtn_print_errchdir(char *dest, char *tofree, t_cmd *cmd);
 
 //unset_utils.c
-void		fulltriche(t_llist **list, int x, int size);
+void 		fulltriche(t_llist **list, int x, int size);
 void		unset_export(t_llist *list, int x, int size);
 int			nameeq(char *str, char *name);
 void		on_export(t_llist *list, t_arg *arg);
@@ -327,7 +339,7 @@ int			export_redir_check(t_cmd *cmd);
 
 //ft_export.c
 char		*get_var(t_arg *arg);
-int			ft_export(t_llist **list, t_arg **tmp, char *name);
+int			ft_export(t_llist **list, t_arg  **tmp, char *name);
 
 //del_arg.c
 t_cmd		*del_arg(t_cmd *cmd);
@@ -354,14 +366,14 @@ void		ft_cmdnotf2(char *str, char *s2);
 int			exec_bypath(t_llist *list, t_pipe *pip, char **arg_tab);
 void		childpro1_bonus(t_llist *list, t_pipe *pip, char **arg_tab);
 void		childpro2_bonus(t_llist *list, t_pipe *pip, char **arg_tab, int j);
-void		childpro_bonus(t_llist *list, t_pipe *pip, char **arg_tab, int j);
+void    	childpro_bonus(t_llist *list, t_pipe *pip, char **arg_tab, int j);
 void		child_manager(t_llist *list, int j, t_pipe *pip, char **arg_tab);
 
 //pip_utils.c
 void		init_pipe(t_pipe *pip);
 int			count_pipe(t_llist *list);
 t_pipe		*pip_init(t_llist *list);
-void		err_exit(void);
+void		err_exit();
 void		free_arg_tab(char **arg_tab);
 
 //free_pip.c
@@ -376,6 +388,7 @@ int			pipex_redir(t_cmd *cmd);
 void		pipex(t_llist *list, t_pipe *pip, int j, pid_t pid);
 int			main_pip(t_llist *list);
 
-extern int				g_lol;
+//test check err code
+int			cec(t_llist *list, char *cmd);
 
-#endif
+# endif
