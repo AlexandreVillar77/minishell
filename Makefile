@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+         #
+#    By: avillar <avillar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 13:12:34 by thbierne          #+#    #+#              #
-#    Updated: 2022/08/19 12:07:28 by thbierne         ###   ########.fr        #
+#    Updated: 2022/08/22 09:14:51 by avillar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,6 @@ SRCS =	srcs/alloc_arg.c			\
 		srcs/test_cmd.c				\
 		srcs/utils1.c				\
 		srcs/utils2.c				\
-		srcs/utils3.c				\
 		srcs/ft_redirection.c		\
 		srcs/sort_redi.c			\
 		srcs/echo.c					\
@@ -66,8 +65,7 @@ SRCS =	srcs/alloc_arg.c			\
 		srcs/unset_utils.c			\
 		srcs/manage_redi.c			\
 		srcs/free_pip.c				\
-		srcs/test_cmd_utils.c		\
-		srcs/output.c			\
+		srcs/check_err_code.c		\
 
 OBJS = $(SRCS:.c=.o)
 
