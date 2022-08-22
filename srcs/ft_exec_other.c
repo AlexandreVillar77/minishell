@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 13:26:31 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/18 13:19:20 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/22 09:32:09 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,6 @@ int	ft_exec_others(t_llist *list)
 		close (fd);
 	waitpid(child, &status, 0);
 	if (status == 256)
-		return (127);
+		return (cec(list, list->first_cmd->cmd));
 	return (0);
 }

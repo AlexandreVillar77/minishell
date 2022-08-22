@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 10:36:44 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/18 13:07:20 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/22 09:15:16 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ void	exec_path_p1(t_llist *list, char **arg_tab, char *cmd)
 		ft_cmdnotf("command not found: ", list->first_cmd->cmd);
 	else
 		ft_cmdnotf2(list->first_cmd->cmd, " : No such file or directory\n");
-	LOL -= LOL;
-	LOL += 127;
 	free_arg_tab(arg_tab);
 	free (list->first_cmd);
 	free_llist(list, NULL);
