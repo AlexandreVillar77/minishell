@@ -6,7 +6,7 @@
 /*   By: thbierne <thbierne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:27:38 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/22 09:30:41 by thbierne         ###   ########.fr       */
+/*   Updated: 2022/08/22 09:40:44 by thbierne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -375,5 +375,7 @@ int			check_redir_pipe(t_llist *list, t_pipe *pip);
 int			pipex_redir(t_cmd *cmd);
 void		pipex(t_llist *list, t_pipe *pip, int j, pid_t pid);
 int			main_pip(t_llist *list);
+
+extern int				g_lol;
 
 #endif
