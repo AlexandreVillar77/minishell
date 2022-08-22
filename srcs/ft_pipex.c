@@ -6,7 +6,7 @@
 /*   By: avillar <avillar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:17:23 by avillar           #+#    #+#             */
-/*   Updated: 2022/08/19 12:23:00 by avillar          ###   ########.fr       */
+/*   Updated: 2022/08/22 09:32:26 by avillar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,12 @@ void	pipex(t_llist *list, t_pipe *pip, int j, pid_t pid)
 		tmp = tmp->next_cmd;
 		pip->x++;
 		j += 2;
-		if (pip->cmd && not_builtins(pip) == 0)
-			//free (pip->cmd);
+		if (pip->cmd && not_builtins(pip) == 0 && ((cec(list, pip->cmd)) == 1))
+			free (pip->cmd);
 		if (arg_tab)
 			free_arg_tab(arg_tab);
 	}
 	j = -1;
-	ft_closing_end(pip);
 	while (++j < pip->npip + 1)
 		wait(&status);
 }
@@ -113,6 +112,7 @@ int	main_pip(t_llist *list)
 	pid = 0;
 	init_pipe(pip);
 	pipex(list, pip, 0, pid);
+	ft_closing_end(pip);
 	if (pip->end)
 		free (pip->end);
 	if (pip)
